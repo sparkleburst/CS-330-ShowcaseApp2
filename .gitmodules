@@ -1,0 +1,3 @@
+[submodule "CS330-ShowcaseApp/external/shared/glm"]
+	path = CS330-ShowcaseApp/external/shared/glm
+	url = https://github.com/g-truc/glm
