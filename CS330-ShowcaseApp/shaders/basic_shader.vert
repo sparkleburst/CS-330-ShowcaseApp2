@@ -13,5 +13,9 @@
     void main() {
         gl_Position = projection * view * model * vec4(position, 1);
         vertexColor = vec4(color, 1.0f);
+        // vertexColor = vec4(0.0f, 0.0f, 0.0f, 1.0f); // Black
     }
+
+    // if you change something here go into shader.cpp and add a space or return there somewhere
+    // for the program to realize a change has been made
 

@@ -121,7 +121,7 @@ bool Application::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // basic camera
-    glm::mat4 view = glm::lookAt(glm::vec3(-1.f, 2.0f, -2.f),
+    glm::mat4 view = glm::lookAt(glm::vec3(0.f, 2.0f, -2.f),
                                  glm::vec3(0.f,0.f,0.f),
                                  glm::vec3(0.f, 1.f, 0.f));
 
@@ -139,8 +139,8 @@ bool Application::draw() {
 
     for (auto& mesh : _meshes) {
         // rotate objects
-        mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.1f),
-                                     glm::vec3(1, 1, 0));
+        mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.3f),
+                                     glm::vec3(1, 1, 1));
 
         _shader.SetMat4("model", mesh.Transform);
         mesh.Draw();
