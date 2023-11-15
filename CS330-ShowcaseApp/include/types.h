@@ -22,8 +22,8 @@ struct Vertex {
 struct Shapes {
     static inline std::vector<Vertex> cubeVertices {
         // front face
-            {
-                    .Position = {-0.5f, 0.5f, 0.5f},
+            { // pyramid tip
+                    .Position = {0.f, 0.5f, 0.f},
                     .Color = {0.8f, 0.0f, 0.0f} // darker red
             },
             {
@@ -34,13 +34,15 @@ struct Shapes {
                     .Position = {0.5f, -0.5f, 0.5f},
                     .Color = {1.0f, 0.0f, 0.0f}
             },
+        /*
             {
                     .Position = {0.5f, 0.5f, 0.5f},
                     .Color = {1.0f, 0.0f, 0.0f}
             },
+        */
         // right face
-            {
-                    .Position = {0.5f, 0.5f, 0.5f},
+            { // pyramid tip
+                    .Position = {0.f, 0.5f, 0.f},
                     .Color = {0.6f, 0.3f, 0.6f} // lighter purple
             },
             {
@@ -51,13 +53,15 @@ struct Shapes {
                     .Position = {0.5f, -0.5f, -0.5f},
                     .Color = {0.5f, 0.25f, 0.5f}
             },
+        /*
             {
                     .Position = {0.5f, 0.5f, -0.5f},
                     .Color = {0.5f, 0.25f, 0.5f}
             },
+        */
         // back face
-            {
-                    .Position = {0.5f, 0.5f, -0.5f},
+            { // pyramid tip
+                    .Position = {0.f, 0.5f, 0.f},
                     .Color = {0.8, 0.518, 0.0} // darker orange
             },
             {
@@ -68,13 +72,15 @@ struct Shapes {
                     .Position = {-0.5f, -0.5f, -0.5f},
                     .Color = {1.0, 0.647, 0.0}
             },
+        /*
             {
                     .Position = {-0.5f, 0.5f, -0.5f},
                     .Color = {1.0, 0.647, 0.0}
             },
+        */
         // left face
-            {
-                    .Position = {-0.5f, 0.5f, -0.5f},
+            { // pyramid tip
+                    .Position = {0.f, 0.5f, 0.f},
                     .Color = {0.8f, 0.8f, 0.4f} // darker yellow
             },
             {
@@ -85,13 +91,16 @@ struct Shapes {
                     .Position = {-0.5f, -0.5f, 0.5f},
                     .Color = {1.0f, 1.0f, 0.5f}
             },
+        /*
             {
                     .Position = {-0.5f, 0.5f, 0.5f},
                     .Color = {1.0f, 1.0f, 0.5f}
             },
-        // top face
+        */
+        /*
+        // top face - would be for a cube
             {
-                    .Position = {-0.5f, 0.5f, -0.5f},
+                    .Position = {0.f, 0.f, 0.f},
                     .Color = {0.6f, 1.0f, 0.6f} // lighter green
             },
             {
@@ -106,6 +115,7 @@ struct Shapes {
                     .Position = {0.5f, 0.5f, -0.5f},
                     .Color = {0.0f, 1.0f, 0.0f}
             },
+        */
         // bottom face
             {
                     .Position = {0.5f, -0.5f, 0.5f},
@@ -128,12 +138,12 @@ struct Shapes {
 
     static inline std::vector<uint32_t> cubeElements {
         // indices
-        0, 1, 3, 1, 2, 3, // front face
-        4, 5, 7, 5, 6, 7, // right face
-        8, 9, 11, 9, 10, 11, // back face
-        12, 13, 15, 13, 14, 15, // left face
-        16, 17, 19, 17, 18, 19, // top face
-        20, 21, 23, 21, 22, 23 // bottom face
+        0, 1, 2, // 0, 1, 3, 1, 2, 3, // front face
+        3, 4, 5, // 4, 5, 7, 5, 6, 7, // right face
+        6, 7, 8, // 8, 9, 11, 9, 10, 11, // back face
+        9, 10, 11, // 12, 13, 15, 13, 14, 15, // left face
+        // 16, 17, 19, 17, 18, 19, // top face
+        12, 13, 15, 13, 14, 15 //20, 21, 23, 21, 22, 23 // bottom face
     };
 };
 
