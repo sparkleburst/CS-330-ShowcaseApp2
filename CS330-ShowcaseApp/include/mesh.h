@@ -10,11 +10,15 @@
 class Mesh {
 public:
     // Mesh() = default;
-    Mesh(std::vector<Vertex>&& vertices, std::vector<uint32_t> && elements);
+    Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements);
 
     void Draw();
 
+    // basic camera
+    glm::mat4 Transform {1.f};
+
 private:
+
     uint32_t _elementCount {0};
     GLuint _vertexBufferObject {};
     GLuint _shaderProgram {};

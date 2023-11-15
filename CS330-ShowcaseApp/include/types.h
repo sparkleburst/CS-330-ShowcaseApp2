@@ -13,65 +13,121 @@ struct Vertex {
     glm::vec2 Uv {1.f, 1.f};
 };
 
+struct Shapes {
+    static inline std::vector<Vertex> cubeVertices {
+        // front face
+            {
+                    .Position = {-0.5f, 0.5f, 0.5f},
+                    .Color = {1.0f, 0.5f, 0.5f} // red
+            },
+            {
+                    .Position = {-0.5f, -0.5f, 0.5f},
+                    .Color = {1.0f, 0.5f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, -0.5f, 0.5f},
+                    .Color = {1.0f, 0.5f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, 0.5f, 0.5f},
+                    .Color = {1.0f, 0.5f, 0.5f}
+            },
+        // right face
+            {
+                    .Position = {0.5f, 0.5f, 0.5f},
+                    .Color = {0.5f, 0.5f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, -0.5f, 0.5f},
+                    .Color = {0.5f, 0.5f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, -0.5f, -0.5f},
+                    .Color = {0.5f, 0.5f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, 0.5f, -0.5f},
+                    .Color = {0.5f, 0.5f, 0.5f}
+            },
+        // back face
+            {
+                    .Position = {0.5f, 0.5f, -0.5f},
+                    .Color = {1.0f, 1.0f, 0.5f}
+            },
+            {
+                    .Position = {0.5f, -0.5f, -0.5f},
+                    .Color = {1.0f, 1.0f, 0.5f}
+            },
+            {
+                    .Position = {-0.5f, -0.5f, -0.5f},
+                    .Color = {1.0f, 1.0f, 0.5f}
+            },
+            {
+                    .Position = {-0.5f, 0.5f, -0.5f},
+                    .Color = {1.0f, 1.0f, 0.5f}
+            },
+        // left face
+            {
+                    .Position = {-0.5f, 0.5f, -0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, -0.5f, -0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, -0.5f, 0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, 0.5f, 0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+        // top face
+            {
+                    .Position = {-0.5f, 0.5f, -0.5f},
+                    .Color = {0.0f, 1.0f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, 0.5f, 0.5f},
+                    .Color = {0.0f, 1.0f, 0.0f}
+            },
+            {
+                    .Position = {0.5f, 0.5f, 0.5f},
+                    .Color = {0.0f, 1.0f, 0.0f}
+            },
+            {
+                    .Position = {0.5f, 0.5f, -0.5f},
+                    .Color = {0.0f, 1.0f, 0.0f}
+            },
+        // bottom face
+            {
+                    .Position = {0.5f, -0.5f, 0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {0.5f, -0.5f, -0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, -0.5f, -0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            },
+            {
+                    .Position = {-0.5f, -0.5f, 0.5f},
+                    .Color = {0.0f, 0.5f, 0.0f}
+            }
+    };
 
-/*
-// below is work done to get to a more efficient way of doing things
-// a struct with 3 floats
-// a struct is a class where everything is automatically public
-struct Vertex{
-    // glm::vec3 is a struct with three floats
-    // if we initialize Position then we don't have to add this to every single vertex
-    glm::vec3 Position {0.f, 0.f, 0.f}; // represents a vertex with 3 points: x, y and z
-    // default position: x=0, y=0, z=0
 
-     * above is a simpler way of writing what is below
-    float positionX;
-    float positionY;
-    float positionZ;
-
-    // if we initialize Color then we don't have to add this to every single vertex
-    glm::vec3 Color {1.f, 1.f, 1.f}; // represents rgb color data
-    // default color: white
-    // if we initialize UV then we don't have to add this to every single vertex
-    glm::vec2 UV {1.f, 1.f};
-    glm::vec3 Normal {0.f, 0.f, 0.f}; // represents the normals (or which
-    // way it is facing)
+    static inline std::vector<uint32_t> cubeElements {
+        // indices
+        0, 1, 3, 1, 2, 3, // front face
+        4, 5, 7, 5, 6, 7, // right face
+        8, 9, 11, 9, 10, 11, // back face
+        12, 13, 15, 13, 14, 15, // left face
+        16, 17, 19, 17, 18, 19, // top face
+        20, 21, 23, 21, 22, 23 // bottom face
+    };
 };
 
-float RawArray[] = {
-        //position                          //color
-        -0.5f, -0.5f, 0.0f,     1.f, 1.f, 1.f,
-        0.5f, -0.5f, 0.0f,      1.f, 1.f, 1.f,
-        0.0f, 0.5f, 0.0f,     1.f, 1.f, 1.f
-};
-
-// below are the arrays in the struct Vertex
-Vertex vertices[] = {
-         we technically don't need to show position or color data because we have
-         * initialised them in struct Vertex
-         * Three empty squiggly braces will work just as well. Only need to add Vertex
-         * values that are different from the default
-
-        {
-            //.Position = {-0.5f, -0.5f, 0.0f},
-            //.Color = {1.f, 1.f, 1.f}
-        },
-        {
-            //.Position = {0.5f, -0.5f, 0.0f},
-            //.Color = {1.f, 1.f, 1.f}
-        },
-        {
-            //.Position = {0.0f, 0.5f, 0.0f},
-            //.Color = {1.f, 1.f, 1.f}
-        },
-
-
-         * below is the arrays in vertex that went with the original, more
-         * complicated way of doing this
-        {-0.5f, -0.5f, 0.0f},
-        {0.5f, -0.5f, 0.0f},
-        {0.0f, 0.5f, 0.0f}
-
-};
-
-*/

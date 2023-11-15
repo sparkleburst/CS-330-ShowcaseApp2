@@ -6,7 +6,7 @@
 #include <iostream>
 
 // mesh.cpp constructor
-Mesh::Mesh(std::vector<Vertex>&& vertices, std::vector<uint32_t> && elements) {
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements) {
     // create the triangle
     glGenVertexArrays(1, &_vertexArrayObject);
     // initialize above with below

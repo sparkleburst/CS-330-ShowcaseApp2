@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <string>
 #include <GLAD/glad.h>
+#include <glm/glm.hpp>
 
 using Path = std::filesystem::path;
 
@@ -17,8 +18,10 @@ public:
 
     void Bind();
 
+    void SetMat4(const std::string& uniformName, const glm::mat4& mat4);
 private:
     void load(const std::string& vertexSource, const std::string& fragmentSource);
+    GLint getUniformLocation(const std::string& uniformName);
 
 private:
     GLuint _shaderProgram;

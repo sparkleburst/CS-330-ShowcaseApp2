@@ -5,6 +5,7 @@
 #include <shader.h>
 #include <iostream>
 #include <fstream>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const std::string &vertexSource, const std::string &fragmentSource) {
     load(vertexSource, fragmentSource);
@@ -97,4 +98,18 @@ void Shader::load(const std::string &vertexSource, const std::string &fragmentSo
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+}
+
+GLint Shader::getUniformLocation(const std::string &uniformName) {
+
+    return glGetUniformLocation(_shaderProgram, uniformName.c_str());
+}
+
+void Shader::SetMat4(const std::string& uniformName,const glm::mat4 &mat4) {
+    auto uniformLoc = getUniformLocation(uniformName);
+
+    if (uniformLoc != -1) {
+        Bind();
+        glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, glm::value_ptr(mat4));
+    }
 }
