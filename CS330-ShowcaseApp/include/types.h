@@ -17,7 +17,7 @@ struct Vertex {
  * to make colors darker change every rgb value by the same percentage eg. for red:
  * {1.0f, 0.0f, 0.0f} becomes {0.8f, 0.0f, 0.0f} each is changed by 20%
  * or more clearly for yellow: {1.0f, 1.0f, 0.5f} becomes {0.8f, 0.8f, 0.4f}
- * */
+ */
 
 struct Shapes {
     static inline std::vector<Vertex> cubeVertices {
@@ -41,11 +41,11 @@ struct Shapes {
         // right face
             {
                     .Position = {0.5f, 0.5f, 0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f} // purple
+                    .Color = {0.6f, 0.3f, 0.6f} // lighter purple
             },
             {
                     .Position = {0.5f, -0.5f, 0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f}
+                    .Color = {0.5f, 0.25f, 0.5f} // purple
             },
             {
                     .Position = {0.5f, -0.5f, -0.5f},
@@ -92,11 +92,11 @@ struct Shapes {
         // top face
             {
                     .Position = {-0.5f, 0.5f, -0.5f},
-                    .Color = {0.0f, 1.0f, 0.0f} // green
+                    .Color = {0.6f, 1.0f, 0.6f} // lighter green
             },
             {
                     .Position = {-0.5f, 0.5f, 0.5f},
-                    .Color = {0.0f, 1.0f, 0.0f}
+                    .Color = {0.0f, 1.0f, 0.0f} // green
             },
             {
                     .Position = {0.5f, 0.5f, 0.5f},
@@ -113,7 +113,7 @@ struct Shapes {
             },
             {
                     .Position = {0.5f, -0.5f, -0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f}
+                    .Color = {0.0f, 0.0f, 0.0f} // black
             },
             {
                     .Position = {-0.5f, -0.5f, -0.5f},
