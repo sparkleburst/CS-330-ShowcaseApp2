@@ -8,7 +8,7 @@
 
 Camera::Camera(int width, int height, glm::vec3 initialPosition, bool isPerspective)
     : _isPerspective { isPerspective },
-    _position { initialPosition }, _lookDirection{ 0.f, 0.f, 1.f},
+    _position { initialPosition }, _lookDirection{ 0.f, 0.2f, 1.f},
     _width { width }, _height { height } {
 
     recalculateVectors();
@@ -27,8 +27,9 @@ glm::mat4 Camera::GetProjectionMatrix() const {
     }
 
     // else returns the orthographic matrix
-    return glm::ortho(0.f, static_cast<float>(_width), 0.f, static_cast<float>(_height),
-                      _nearClip, _farClip);
+    return glm::ortho(-static_cast<float>(_width) / _fieldOfView, static_cast<float>(_width) / _fieldOfView,
+                      -static_cast<float>(_height) / _fieldOfView, static_cast<float>(_height) / _fieldOfView,
+                      _orthoNearClip, _orthoFarClip);
 }
 
 
@@ -84,5 +85,5 @@ void Camera::recalculateVectors() {
 void Camera::IncrementZoom(float amount) {
     _fieldOfView -= amount;
 
-    _fieldOfView = std::clamp(_fieldOfView, 1.f, 75.f);
+    _fieldOfView = std::clamp(_fieldOfView, 5.f, 100.f);
 }

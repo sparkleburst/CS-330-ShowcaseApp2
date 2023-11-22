@@ -118,6 +118,9 @@ bool Application::openWindow()
 
 void Application::setupInputs() {
 
+    // hide the cursor
+    glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     glfwSetKeyCallback( _window, []
     (GLFWwindow* window, int key, int scancode, int action, int mods){
         auto* app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
@@ -143,7 +146,7 @@ void Application::setupInputs() {
     glfwSetCursorPosCallback(_window, [](GLFWwindow* window, double xpos, double ypos) {
         auto* app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
 
-//d        app->mousePositionCallBack(xpos, ypos);
+//        app->mousePositionCallBack(xpos, ypos);
     });
 
     glfwSetScrollCallback(_window, [](GLFWwindow* window, double xOffset, double yOffset) {
@@ -204,6 +207,11 @@ void Application::setupScene() {
     // don't have to call the file twice so no "Path shaderPath ="
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
 */
+
+    // this is the plane or floor
+    auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
+
+    catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
 
     // this is the left side bedCylinder
     auto& leftBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
@@ -318,8 +326,10 @@ void Application::mousePositionCallBack(double xpos, double ypos) {
             _lastMousePosition.y - ypos,
     };
 
-    _lastMousePosition.x = static_cast<float>(xpos);
-    _lastMousePosition.y = static_cast<float>(ypos);
+    _lastMousePosition.x = 400;
+    _lastMousePosition.y = 300;
+
+    glfwSetCursorPos(_window, 400.0, 300.0);
 
     _camera.RotateBy(moveAmount.x * _cameraLookSpeed.x, moveAmount.y * _cameraLookSpeed.y);
 }

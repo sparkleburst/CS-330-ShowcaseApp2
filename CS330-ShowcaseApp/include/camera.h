@@ -49,8 +49,10 @@ private:
     float _fieldOfView { 75.f };
     int _width { 0 };
     int _height { 0 };
-    float _nearClip { 0.1f }; // how close objects can be before it cuts stuff off
+    float _nearClip { 0.01f }; // how close objects can be before it cuts stuff off
     float _farClip { 100.f }; // how far away objects can be before it cuts stuff off
+    float _orthoNearClip { 1.1f }; // how close objects can be before it cuts stuff off
+    float _orthoFarClip { 1000.f }; // how far away objects can be before it cuts stuff off
 };
 
 

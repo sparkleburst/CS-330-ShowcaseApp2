@@ -22,15 +22,40 @@ struct Vertex {
  */
 
 struct Shapes {
+    static inline std::vector<Vertex> planeVertices{
+            // a plane is two triangles
+            {
+                    .Position = {2.5f, -0.1f, 2.5f},
+                    .Color = {0.0, 0.3f, 0.0f} // darker green
+            },
+            {
+                    .Position = {2.5f, -0.1f, -2.5f},
+                    .Color = {0.0, 0.3f, 0.0f} // darker green
+            },
+            {
+                    .Position = {-2.5f, -0.1f, -2.5f},
+                    .Color = {0.0, 0.3f, 0.0f} // darker green
+            },
+            {
+                    .Position = {-2.5f, -0.1f, 2.5f},
+                    .Color = {0.0, 0.3f, 0.0f} // darker green
+            },
+    };
+
+    static inline std::vector<uint32_t> planeElements{
+            // indices
+            0, 1, 3, 1, 2, 3, // a triangle
+    };
+
     static inline std::vector<Vertex> cubeVertices{
             // front face
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
-                    .Color = {0.7f, 0.0f, 0.0f} // red
+                    .Color = {0.7f, 0.0f, 0.0f} // darker red
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
-                    .Color = {1.0, 0.0f, 0.0f}
+                    .Color = {1.0, 0.0f, 0.0f} // red
             },
             {
                     .Position = {0.5f, -0.1f, 0.5f},
