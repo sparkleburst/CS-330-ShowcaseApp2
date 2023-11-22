@@ -6,11 +6,29 @@
 #include <vector>
 #include <types.h>
 #include <glad/glad.h>
+#include <vector>
+
+enum MeshType {
+    Cube,
+    Pyramid,
+    Cylinder,
+    // Add more mesh types as needed
+};
+
+/*
+struct Vertex {
+    glm::vec3 Position;
+    glm::vec3 Color;
+    // Other vertex attributes...
+};
+*/
 
 class Mesh {
 public:
-    // Mesh() = default;
+
     Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements);
+    explicit Mesh(MeshType type);
+    MeshType Type;
 
     void Draw();
 
@@ -26,6 +44,8 @@ private:
     // below is what helps with vertices sharing a space (being on the same vertex point)
     // it is so that the normals will behave correctly for lighting
     GLuint _elementBufferObject {};
+
+
 };
 
 

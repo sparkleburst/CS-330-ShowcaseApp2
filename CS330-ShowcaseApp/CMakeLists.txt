@@ -14,7 +14,9 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${GLAD_SOURCES}
         src/mesh.cpp
         include/mesh.h
         src/shader.cpp
-        include/shader.h)
+        include/shader.h
+        src/camera.cpp
+        include/camera.h)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE

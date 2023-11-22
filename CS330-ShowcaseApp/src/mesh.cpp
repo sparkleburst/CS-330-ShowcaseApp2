@@ -5,7 +5,8 @@
 #include <mesh.h>
 #include <iostream>
 
-// mesh.cpp constructor
+// mesh.cpp constructors
+
 Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements) {
     // create the triangle
     glGenVertexArrays(1, &_vertexArrayObject);
@@ -35,88 +36,13 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements) {
     glEnableVertexAttribArray(2);
     glEnableVertexAttribArray(3);
 
-    /*
-     * moved to application.cpp
-    // create vertex shaders with string literals - (R"(asd)")
-    auto vertexShaderSource = R"(#version 330 core
-    layout (location = 0) in vec3 position;
-    layout (location = 1) in vec3 color;
-    layout (location = 2) in vec3 normal;
-    layout (location = 3) in vec3 uv;
-
-    out vec4 vertexColor;
-    void main() {
-        gl_Position = vec4(position.x, position.y, position.z, 1.0f);
-        vertexColor = vec4(color, 1.0f);
-    }
-    )";
-
-    // define vertex shaders
-    auto fragmentShaderSource = R"(#version 330 core
-
-    out vec4 FragColor;
-    in vec4 vertexColor;
-
-    void main() {
-        FragColor = vertexColor;
-    }
-    )";
-    // FragColor is making the color of the vertices
-    */
-
-/*
- * moved to shaders.cpp
-    auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-    // compile the vertex shaders
-
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-
-    if (!success) {
-        glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-        std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog
-                  << std::endl;
-    }
-
-    auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    // compile the vertex shaders
-
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-
-    if (!success) {
-        glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
-        std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog
-                  << std::endl;
-    }
-
-    _shaderProgram = glCreateProgram();
-    glAttachShader(_shaderProgram, vertexShader);
-    glAttachShader(_shaderProgram, fragmentShader);
-    glLinkProgram(_shaderProgram);
-
-    glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &success);
-
-    if (!success) {
-        glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
-        std::cerr << "ERROR::SHADER::FRAGMENT::LINK_FAILED\n" << infoLog
-                  << std::endl;
-    }
-
-    // next delete the shaders after we've created them as we don't need them anymore
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-*/
     _elementCount = elements.size();
 }
+
+Mesh::Mesh(MeshType type) : Type(type) {
+    // Initialize other members as needed
+}
+
 
 void Mesh::Draw() {
     /* moved to shaders.cpp
