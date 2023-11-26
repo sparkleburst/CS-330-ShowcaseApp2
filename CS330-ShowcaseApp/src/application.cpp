@@ -190,24 +190,24 @@ void Application::setupInputs() {
 
 void Application::setupScene() {
 
-    auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
-
-    /*
-    // move the cube over
-    bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
-     */
-
     // get to shaders file info
     Path shaderPath = std::filesystem::current_path() / "shaders";
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
 
-/*
+
     //this is the pyramid
     auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements);
 
     // don't have to call the file twice so no "Path shaderPath ="
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
-*/
+
+/*
+ *
+    // this is the cat bed base rectangle (square atm)
+    auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
+
+    // move the cube over
+    bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
 
     // this is the plane or floor
     auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
@@ -237,6 +237,8 @@ void Application::setupScene() {
 
     frontBedCylinder.Transform = glm::translate(frontBedCylinder.Transform, glm::vec3(0.f, 0.2f, -0.5f));
     frontBedCylinder.Transform = glm::rotate(frontBedCylinder.Transform, glm::radians(270.f), glm::vec3(0, 0, 1));
+
+*/
 }
 
 bool Application::update(float deltaTime) {
