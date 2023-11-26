@@ -54,6 +54,14 @@ void Camera::MoveCamera(MoveDirection direction, float moveAmount)
             moveDirection = glm::normalize(glm::cross(_lookDirection, _upDirection));
             break;
         }
+        case MoveDirection::Up: {
+            moveDirection = _upDirection;
+            break;
+        }
+        case MoveDirection::Down: {
+            moveDirection = -_upDirection;
+            break;
+        }
     }
 
     _position += moveDirection * moveAmount;

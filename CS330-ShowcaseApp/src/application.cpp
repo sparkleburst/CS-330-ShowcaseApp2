@@ -152,7 +152,8 @@ void Application::setupInputs() {
     glfwSetScrollCallback(_window, [](GLFWwindow* window, double xOffset, double yOffset) {
         // std::cout << "mouse wheel (" << xOffset << ", " << yOffset << ")" << std::endl;
         auto* app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
-        app->_camera.IncrementZoom(yOffset * 2);
+        // app->_camera.IncrementZoom(yOffset * 2); // makes scroll zoom
+        app->_moveSpeed *= pow(1.1, yOffset); // makes scroll speed camera up or down
     });
 
     glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, int button, int action, int mods) {
@@ -304,6 +305,12 @@ void Application::handleInput(float deltaTime) {
     }
     if (glfwGetKey(_window, GLFW_KEY_D)) {
         _camera.MoveCamera(Camera::MoveDirection::Right, moveAmount);
+    }
+    if (glfwGetKey(_window, GLFW_KEY_Q)) {
+        _camera.MoveCamera(Camera::MoveDirection::Up, moveAmount);
+    }
+    if (glfwGetKey(_window, GLFW_KEY_E)) {
+        _camera.MoveCamera(Camera::MoveDirection::Down, moveAmount);
     }
 
     double xpos, ypos;
