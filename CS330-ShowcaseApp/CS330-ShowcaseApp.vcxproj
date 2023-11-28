@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\shared\glad\src\glad.c" />
+    <ClCompile Include="external\shared\stb_image\stb.cpp" />
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -86,7 +87,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\external\vslibs\glfw-64\include;$(ProjectDir)\external\shared\glad\include;$(ProjectDir)include;$(ProjectDir)\external\vslibs\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\external\vslibs\glfw-64\include;$(ProjectDir)\external\shared\glad\include;$(ProjectDir)include;$(ProjectDir)\external\vslibs\glm;$(ProjectDir)\external\shared\stb_image\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,7 +132,7 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders\*.*" "$(TargetDir)shaders" /Y /I /E</Command>
+      <Command>xcopy "$(ProjectDir)assets\*.*" "$(TargetDir)assets" /Y /I /E</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

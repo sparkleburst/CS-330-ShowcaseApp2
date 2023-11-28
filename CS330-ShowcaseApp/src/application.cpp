@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
+#include <stb_image.h>
 
 // constructor
 Application::Application(std::string WindowTitle, int width, int height)
@@ -68,8 +69,8 @@ bool Application::openWindow()
 
 	// this is so we can be compatible with older versions
 	// our version is 4.6
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -190,30 +191,20 @@ void Application::setupInputs() {
 
 void Application::setupScene() {
 
-    // get to shaders file info
-    Path shaderPath = std::filesystem::current_path() / "shaders";
-    _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
-
-
-    //this is the pyramid
+    // this is the pyramid
     auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements);
 
-    // don't have to call the file twice so no "Path shaderPath ="
-    _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
-
-/*
- *
     // this is the cat bed base rectangle (square atm)
-    auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
+    //auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
 
     // move the cube over
-    bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
+    // bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
 
     // this is the plane or floor
-    auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
+    //auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
 
-    catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
-
+    //catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
+/*
     // this is the left side bedCylinder
     auto& leftBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
 
@@ -239,6 +230,16 @@ void Application::setupScene() {
     frontBedCylinder.Transform = glm::rotate(frontBedCylinder.Transform, glm::radians(270.f), glm::vec3(0, 0, 1));
 
 */
+
+    // get to shaders file info
+    Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
+    _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
+
+    auto texturePath = std::filesystem::current_path() / "assets" / "textures";
+    _textures.emplace_back(texturePath / "pyramid_brick.jpg");
+    _textures.emplace_back(texturePath / "reddish_fluff.png");
+    _textures.emplace_back(texturePath / "rain_on_glass.jpg");
+
 }
 
 bool Application::update(float deltaTime) {
@@ -263,10 +264,23 @@ bool Application::draw() {
 
     // bind shaders before drawing meshes
     _shader.Bind();
-
     _shader.SetMat4("projection", projection);
     _shader.SetMat4("view", view);
 
+    // for each texture do below
+    _shader.SetInt("tex0", 0);
+    _shader.SetInt("tex1", 1);
+
+    // adding textures
+    // glActiveTexture(GL_TEXTURE0);
+    // bind textures after binding shaders but before drawing the mesh
+    // glBindTexture(GL_TEXTURE_2D, _woodFloorTexture);
+
+    // for when you want to do multiple textures
+    for (auto i = 0; i < _textures.size(); i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        _textures[i].Bind();
+    }
 
 
     for (auto& mesh : _meshes) {

@@ -6,6 +6,7 @@
 #include <mesh.h>
 #include <shader.h>
 #include <camera.h>
+#include <texture.h>
 
 class Application {
 public:
@@ -34,6 +35,7 @@ private:
     float _moveSpeed = 5.f;
     Camera _camera;
     std::vector<Mesh> _meshes;
+    std::vector<Texture> _textures;
     Shader _shader;
 	bool _running{ false };
 
@@ -42,4 +44,9 @@ private:
     glm::vec2 _cameraLookSpeed {};
 
     float _lastFrameTime { -1.f };
+
+    // don't need these anymore
+    // GLuint _woodFloorTexture;
+    // GLuint _reddishFluffTexture;
+    // GLuint _rainGlassTexture;
 };

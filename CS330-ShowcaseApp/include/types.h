@@ -21,24 +21,33 @@ struct Vertex {
  * or more clearly for yellow: {1.0f, 1.0f, 0.5f} becomes {0.8f, 0.8f, 0.4f}
  */
 
+/*
+ * a Uv greater than 1 will make tiles. for example change all 1's, (0.f, 5.f) (5.f, 0.f)
+ * a Uv smaller than 1 will stretch the Uv
+ */
+
 struct Shapes {
     static inline std::vector<Vertex> planeVertices{
             // a plane is two triangles
             {
                     .Position = {2.5f, -0.1f, 2.5f},
-                    .Color = {0.0, 0.3f, 0.0f} // darker green
+                    .Color = {1.f, 1.f, 1.f}, // white
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {2.5f, -0.1f, -2.5f},
-                    .Color = {0.0, 0.3f, 0.0f} // darker green
+                    .Color = {1.f, 1.f, 1.f}, // white
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {-2.5f, -0.1f, -2.5f},
-                    .Color = {0.0, 0.3f, 0.0f} // darker green
+                    .Color = {1.f, 1.f, 1.f}, // white
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {-2.5f, -0.1f, 2.5f},
-                    .Color = {0.0, 0.3f, 0.0f} // darker green
+                    .Color = {1.f, 1.f, 1.f}, // white
+                    .Uv = {1.f, 1.f}
             },
     };
 
@@ -51,109 +60,133 @@ struct Shapes {
             // front face
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
-                    .Color = {0.7f, 0.0f, 0.0f} // darker red
+                    .Color = {0.7f, 0.0f, 0.0f}, // darker red
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
-                    .Color = {1.0, 0.0f, 0.0f} // red
+                    .Color = {1.0, 0.0f, 0.0f}, // red
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {0.5f, -0.1f, 0.5f},
-                    .Color = {1.0f, 0.0f, 0.0f}
+                    .Color = {1.0f, 0.0f, 0.0f},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, 0.5f},
-                    .Color = {1.0f, 0.0f, 0.0f}
+                    .Color = {1.0f, 0.0f, 0.0f},
+                    .Uv = {1.f, 1.f}
             },
 
             // right face
             {
                     .Position = {0.5f, 0.1f, 0.5f},
-                    .Color = {0.6f, 0.3f, 0.6f} // lighter purple
+                    .Color = {0.6f, 0.3f, 0.6f}, // lighter purple
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.1f, 0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f} // purple
+                    .Color = {0.5f, 0.25f, 0.5f}, // purple
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {0.5f, -0.1f, -0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f}
+                    .Color = {0.5f, 0.25f, 0.5f},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, -0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f}
+                    .Color = {0.5f, 0.25f, 0.5f},
+                    .Uv = {1.f, 1.f}
             },
 
             // back face
             {
                     .Position = {0.5f, 0.1f, -0.5f},
-                    .Color = {0.8, 0.518, 0.0} // darker orange
+                    .Color = {0.8, 0.518, 0.0}, // darker orange
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.1f, -0.5f},
-                    .Color = {1.0, 0.647, 0.0} // orange
+                    .Color = {1.0, 0.647, 0.0}, // orange
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.1f, -0.5f},
-                    .Color = {1.0, 0.647, 0.0}
+                    .Color = {1.0, 0.647, 0.0},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
-                    .Color = {1.0, 0.647, 0.0}
+                    .Color = {1.0, 0.647, 0.0},
+                    .Uv = {1.f, 1.f}
             },
 
             // left face
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
-                    .Color = {0.8f, 0.8f, 0.4f} // darker yellow
+                    .Color = {0.8f, 0.8f, 0.4f}, // darker yellow
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {-0.5f, -0.1f, -0.5f}, // yellow
-                    .Color = {1.0f, 1.0f, 0.5f}
+                    .Color = {1.0f, 1.0f, 0.5f},
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
-                    .Color = {1.0f, 1.0f, 0.5f}
+                    .Color = {1.0f, 1.0f, 0.5f},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
-                    .Color = {1.0f, 1.0f, 0.5f}
+                    .Color = {1.0f, 1.0f, 0.5f},
+                    .Uv = {1.f, 1.f}
             },
 
             // top face
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
-                    .Color = {0.6f, 1.0f, 0.6f} // lighter green
+                    .Color = {0.6f, 1.0f, 0.6f}, // lighter green
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
-                    .Color = {0.0f, 1.0f, 0.0f} // green
+                    .Color = {0.0f, 1.0f, 0.0f}, // green
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, 0.5f},
-                    .Color = {0.0f, 1.0f, 0.0f}
+                    .Color = {0.0f, 1.0f, 0.0f},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, -0.5f},
-                    .Color = {0.0f, 1.0f, 0.0f}
+                    .Color = {0.0f, 1.0f, 0.0f},
+                    .Uv = {1.f, 1.f}
             },
 
             // bottom face
             {
                     .Position = {0.5f, -0.1f, 0.5f},
-                    .Color = {0.2f, 0.2f, 0.2f} // lighter black (grey)
+                    .Color = {0.2f, 0.2f, 0.2f}, // lighter black (grey)
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.1f, -0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f} // black
+                    .Color = {0.0f, 0.0f, 0.0f}, // black
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.1f, -0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f}
+                    .Color = {0.0f, 0.0f, 0.0f},
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f}
+                    .Color = {0.0f, 0.0f, 0.0f},
+                    .Uv = {1.f, 1.f}
             }
     };
 
@@ -171,75 +204,91 @@ struct Shapes {
             // front face
             { // pyramid tip
                     .Position = {0.f, 0.5f, 0.f},
-                    .Color = {0.8f, 0.0f, 0.0f} // darker red
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 1.f}
             },
             {
                     .Position = {-0.5f, -0.5f, 0.5f},
-                    .Color = {1.0f, 0.0f, 0.0f} // red
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {.5f, 0.f}
             },
             {
                     .Position = {0.5f, -0.5f, 0.5f},
-                    .Color = {1.0f, 0.0f, 0.0f}
+                    .Color = {1.0f, 0.0f, 0.0f}, // red
+                    .Uv = {1.f, 0.f}
             },
 
             // right face
             { // pyramid tip
                     .Position = {0.f, 0.5f, 0.f},
-                    .Color = {0.6f, 0.3f, 0.6f} // lighter purple
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.5f, 0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f} // purple
+                    .Color = {1.0f, 0.0f, 0.0f}, // red
+                    .Uv = {.5f, 0.f}
             },
             {
                     .Position = {0.5f, -0.5f, -0.5f},
-                    .Color = {0.5f, 0.25f, 0.5f}
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 0.f}
             },
 
             // back face
             { // pyramid tip
                     .Position = {0.f, 0.5f, 0.f},
-                    .Color = {0.8, 0.518, 0.0} // darker orange
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.5f, -0.5f},
-                    .Color = {1.0, 0.647, 0.0} // orange
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {.5f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.5f, -0.5f},
-                    .Color = {1.0, 0.647, 0.0}
+                    .Color = {0.0f, 0.0f, 0.0f}, // black
+                    .Uv = {1.f, 0.f}
             },
 
             // left face
             { // pyramid tip
                     .Position = {0.f, 0.5f, 0.f},
-                    .Color = {0.8f, 0.8f, 0.4f} // darker yellow
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 1.f}
             },
             {
-                    .Position = {-0.5f, -0.5f, -0.5f}, // yellow
-                    .Color = {1.0f, 1.0f, 0.5f}
+                    .Position = {-0.5f, -0.5f, -0.5f},
+                    .Color = {0.0f, 0.0f, 0.0f}, // black
+                    .Uv = {.5f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.5f, 0.5f},
-                    .Color = {1.0f, 1.0f, 0.5f}
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 0.f}
             },
 
             // bottom face
             {
                     .Position = {0.5f, -0.5f, 0.5f},
-                    .Color = {0.2f, 0.2f, 0.2f} // lighter black (grey)
+                    .Color = {1.0f, 0.0f, 0.0f}, // red
+                    .Uv = {0.f, 1.f}
             },
             {
                     .Position = {0.5f, -0.5f, -0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f} // black
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {0.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.5f, -0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f}
+                    .Color = {0.0f, 0.0f, 0.0f}, // black
+                    .Uv = {1.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.5f, 0.5f},
-                    .Color = {0.0f, 0.0f, 0.0f}
+                    .Color = {1.0, 1.0, 0.8}, // sand
+                    .Uv = {1.f, 1.f}
             }
     };
 

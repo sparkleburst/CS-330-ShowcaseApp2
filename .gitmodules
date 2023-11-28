@@ -1,3 +1,6 @@
 [submodule "CS330-ShowcaseApp/external/shared/glm"]
 	path = CS330-ShowcaseApp/external/shared/glm
 	url = https://github.com/g-truc/glm
+[submodule "external/shared/stb_image/stb"]
+	path = external/shared/stb_image/stb
+	url = https://github.com/nothings/stb.git
