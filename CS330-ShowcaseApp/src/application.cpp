@@ -192,19 +192,19 @@ void Application::setupInputs() {
 void Application::setupScene() {
 
     // this is the pyramid
-    auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements);
+    //auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements);
 
     // this is the cat bed base rectangle (square atm)
-    //auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
+    auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
 
     // move the cube over
     // bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
 
     // this is the plane or floor
-    //auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
+    auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
 
     //catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
-/*
+
     // this is the left side bedCylinder
     auto& leftBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
 
@@ -229,16 +229,21 @@ void Application::setupScene() {
     frontBedCylinder.Transform = glm::translate(frontBedCylinder.Transform, glm::vec3(0.f, 0.2f, -0.5f));
     frontBedCylinder.Transform = glm::rotate(frontBedCylinder.Transform, glm::radians(270.f), glm::vec3(0, 0, 1));
 
-*/
+    // this is a ball
+    auto& aBall = _meshes.emplace_back(Shapes::someSphereVertices, Shapes::someSphereIndices);
 
     // get to shaders file info
     Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
 
     auto texturePath = std::filesystem::current_path() / "assets" / "textures";
-    _textures.emplace_back(texturePath / "pyramid_brick.jpg");
-    _textures.emplace_back(texturePath / "reddish_fluff.png");
-    _textures.emplace_back(texturePath / "rain_on_glass.jpg");
+    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cube
+    _textures.emplace_back(texturePath / "wood_planks.jpg");    // plane
+    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
+    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
+    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
+    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
+    _textures.emplace_back(texturePath / "rain_on_glass.jpg");  //
 
 }
 
@@ -270,18 +275,23 @@ bool Application::draw() {
     // for each texture do below
     _shader.SetInt("tex0", 0);
     _shader.SetInt("tex1", 1);
+    _shader.SetInt("tex2", 2);
+    _shader.SetInt("tex3", 3);
 
     // adding textures
     // glActiveTexture(GL_TEXTURE0);
     // bind textures after binding shaders but before drawing the mesh
     // glBindTexture(GL_TEXTURE_2D, _woodFloorTexture);
 
+    /*
     // for when you want to do multiple textures
     for (auto i = 0; i < _textures.size(); i++) {
         glActiveTexture(GL_TEXTURE0 + i);
         _textures[i].Bind();
     }
+    */
 
+    int meshIndex = 0;
 
     for (auto& mesh : _meshes) {
 
@@ -296,6 +306,7 @@ bool Application::draw() {
             mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.f), glm::vec3(1, 1, 1));
         }
         */
+        _textures[meshIndex++].Bind();
 
         _shader.SetMat4("model", mesh.Transform);
         mesh.Draw();

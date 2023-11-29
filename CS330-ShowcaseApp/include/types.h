@@ -4,6 +4,7 @@
 
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
 #include <cmath>
 #include <iostream>
 
@@ -286,9 +287,10 @@ struct Shapes {
                     .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {-0.5f, -0.5f, 0.5f},
-                    .Color = {1.0, 1.0, 0.8}, // sand
-                    .Uv = {1.f, 1.f}
+                    {-0.5f, -0.5f, 0.5f},
+                    {1.0, 1.0, 0.8}, // sand
+                    {0.f, 0.f, 0.f},
+                    {1.f, 1.f}
             }
     };
 
@@ -306,7 +308,8 @@ struct Shapes {
         std::vector<Vertex> cylinderVertices;
 
         // Top circle vertices
-        cylinderVertices.emplace_back(Vertex{ {0.0f, 0.1f, 0.0f}, {1.0f, 0.0f, 0.0f}}); // Top center
+        cylinderVertices.emplace_back(Vertex{ {0.0f, 0.5f, 0.0f}, {1.0f, 1.0f, 1.0f},
+                                              {0.f, 0.f, 0.f}, {0.5f, 0.5}}); // Top center
 
         // 15 points around the top circle
         for (int i = 0; i < 15; ++i) {
@@ -314,11 +317,16 @@ struct Shapes {
             float x = 0.1f * cos(angle);
             float z = 0.1f * sin(angle);
 
-            cylinderVertices.emplace_back(Vertex{ {x, 0.5f, z}, {1.0f, 0.0f, 0.0f} });
+            float u = 0.5f * cos(angle) + 0.5f;
+            float v = 0.5f * sin(angle) + 0.5f;
+
+            cylinderVertices.emplace_back(Vertex{ {x, 0.5f, z}, {1.0f, 1.0f, 1.0f},
+                                                  {0.f, 0.f, 0.f}, {u, v}});
         }
 
         // Bottom circle vertices
-        cylinderVertices.emplace_back(Vertex{ {0.0f, -0.1f, 0.0f}, {0.0f, 0.0f, 1.0f}}); // Bottom center
+        cylinderVertices.emplace_back(Vertex{ {0.0f, -0.5f, 0.0f}, {1.0f, 1.0f, 1.0f},
+                                              {0.f, 0.f, 0.f},{0.5f, 0.5f}}); // Bottom center
 
         // 15 points around the bottom circle
         for (int i = 0; i < 15; ++i) {
@@ -326,7 +334,11 @@ struct Shapes {
             float x = 0.1f * cos(angle);
             float z = 0.1f * sin(angle);
 
-            cylinderVertices.emplace_back(Vertex{ {x, -0.5f, z}, {0.0f, 0.0f, 1.0f} });
+            float u = 0.5f * cos(angle) + 0.5f;
+            float v = 0.5f * sin(angle) + 0.5f;
+
+            cylinderVertices.emplace_back(Vertex{ {x, -0.5f, z}, {1.0f, 1.0f, 1.0f},
+                                                  {0.f, 0.f, 0.f}, {u, v}});
         }
 
         return cylinderVertices;
@@ -345,10 +357,10 @@ struct Shapes {
         }
 
         // Indices for the bottom circle
-        for (int i = 17; i <= 31; ++i) {
+        for (int i = 1; i <= 15; ++i) {
             cylinderIndices.push_back(16);
-            cylinderIndices.push_back(i);
-            cylinderIndices.push_back((i % 31) + 17);
+            cylinderIndices.push_back(i + 16);
+            cylinderIndices.push_back((i % 15) + 17);
         }
 
         // Indices for the lateral surface
@@ -368,4 +380,58 @@ struct Shapes {
     }
 
     static inline std::vector<uint32_t> someCylinderElements = getCylinderIndices();
+
+    static std::vector<Vertex> getSphereVertices(float radius, int sectorCount, int stackCount) {
+        std::vector<Vertex> sphereVertices;
+
+        float sectorStep = 2 * glm::pi<float>() / sectorCount;
+        float stackStep = glm::pi<float>() / stackCount;
+
+        for (int i = 0; i <= stackCount; ++i) {
+            float stackAngle = glm::pi<float>() / 2 - i * stackStep;
+            float xy = radius * cos(stackAngle);
+            float z = radius * sin(stackAngle);
+
+            for (int j = 0; j <= sectorCount; ++j) {
+                float sectorAngle = j * sectorStep;
+
+                float x = xy * cos(sectorAngle);
+                float y = xy * sin(sectorAngle);
+
+                glm::vec3 position(x, y, z);
+                glm::vec3 normal = glm::normalize(position);
+                glm::vec2 uv(static_cast<float>(j) / sectorCount, static_cast<float>(i) / stackCount);
+
+                sphereVertices.emplace_back(Vertex{position, {1.0f, 1.0f, 1.0f}, normal, uv});
+            }
+        }
+
+        return sphereVertices;
+    }
+
+    static std::vector<uint32_t> getSphereIndices(int sectorCount, int stackCount) {
+        std::vector<uint32_t> sphereIndices;
+
+        for (int i = 0; i < stackCount; ++i) {
+            for (int j = 0; j < sectorCount; ++j) {
+                int k0 = i * (sectorCount + 1) + j;
+                int k1 = k0 + 1;
+                int k2 = k0 + sectorCount + 1;
+                int k3 = k2 + 1;
+
+                sphereIndices.push_back(k0);
+                sphereIndices.push_back(k2);
+                sphereIndices.push_back(k1);
+
+                sphereIndices.push_back(k1);
+                sphereIndices.push_back(k2);
+                sphereIndices.push_back(k3);
+            }
+        }
+
+        return sphereIndices;
+    }
+
+    static inline std::vector<Vertex> someSphereVertices = getSphereVertices(0.5f, 20, 20);
+    static inline std::vector<uint32_t> someSphereIndices = getSphereIndices(20, 20);
 };
