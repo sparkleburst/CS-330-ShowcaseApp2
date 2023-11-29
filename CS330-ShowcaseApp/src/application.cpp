@@ -202,8 +202,7 @@ void Application::setupScene() {
 
     // this is the plane or floor
     auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
-
-    //catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
+    catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
 
     // this is the left side bedCylinder
     auto& leftBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
@@ -231,13 +230,14 @@ void Application::setupScene() {
 
     // this is a ball
     auto& aBall = _meshes.emplace_back(Shapes::someSphereVertices, Shapes::someSphereIndices);
+    aBall.Transform = glm::translate(aBall.Transform, glm::vec3(1.5f, 0.4f, 1.5f));
 
     // get to shaders file info
     Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
 
     auto texturePath = std::filesystem::current_path() / "assets" / "textures";
-    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cube
+    _textures.emplace_back(texturePath / "grey_fur.jpg");  // cube
     _textures.emplace_back(texturePath / "wood_planks.jpg");    // plane
     _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
     _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder

@@ -62,7 +62,7 @@ struct Shapes {
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
                     .Color = {0.7f, 0.0f, 0.0f}, // darker red
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
@@ -72,19 +72,19 @@ struct Shapes {
             {
                     .Position = {0.5f, -0.1f, 0.5f},
                     .Color = {1.0f, 0.0f, 0.0f},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, 0.5f},
                     .Color = {1.0f, 0.0f, 0.0f},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             },
 
             // right face
             {
                     .Position = {0.5f, 0.1f, 0.5f},
                     .Color = {0.6f, 0.3f, 0.6f}, // lighter purple
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {0.5f, -0.1f, 0.5f},
@@ -94,19 +94,19 @@ struct Shapes {
             {
                     .Position = {0.5f, -0.1f, -0.5f},
                     .Color = {0.5f, 0.25f, 0.5f},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, -0.5f},
                     .Color = {0.5f, 0.25f, 0.5f},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             },
 
             // back face
             {
                     .Position = {0.5f, 0.1f, -0.5f},
                     .Color = {0.8, 0.518, 0.0}, // darker orange
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {0.5f, -0.1f, -0.5f},
@@ -116,19 +116,19 @@ struct Shapes {
             {
                     .Position = {-0.5f, -0.1f, -0.5f},
                     .Color = {1.0, 0.647, 0.0},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
                     .Color = {1.0, 0.647, 0.0},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             },
 
             // left face
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
                     .Color = {0.8f, 0.8f, 0.4f}, // darker yellow
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {-0.5f, -0.1f, -0.5f}, // yellow
@@ -138,19 +138,19 @@ struct Shapes {
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
                     .Color = {1.0f, 1.0f, 0.5f},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
                     .Color = {1.0f, 1.0f, 0.5f},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             },
 
             // top face
             {
                     .Position = {-0.5f, 0.1f, -0.5f},
                     .Color = {0.6f, 1.0f, 0.6f}, // lighter green
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {-0.5f, 0.1f, 0.5f},
@@ -160,19 +160,19 @@ struct Shapes {
             {
                     .Position = {0.5f, 0.1f, 0.5f},
                     .Color = {0.0f, 1.0f, 0.0f},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {0.5f, 0.1f, -0.5f},
                     .Color = {0.0f, 1.0f, 0.0f},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             },
 
             // bottom face
             {
                     .Position = {0.5f, -0.1f, 0.5f},
                     .Color = {0.2f, 0.2f, 0.2f}, // lighter black (grey)
-                    .Uv = {0.f, 1.f}
+                    .Uv = {0.f, 4.f}
             },
             {
                     .Position = {0.5f, -0.1f, -0.5f},
@@ -182,12 +182,12 @@ struct Shapes {
             {
                     .Position = {-0.5f, -0.1f, -0.5f},
                     .Color = {0.0f, 0.0f, 0.0f},
-                    .Uv = {1.f, 0.f}
+                    .Uv = {4.f, 0.f}
             },
             {
                     .Position = {-0.5f, -0.1f, 0.5f},
                     .Color = {0.0f, 0.0f, 0.0f},
-                    .Uv = {1.f, 1.f}
+                    .Uv = {4.f, 4.f}
             }
     };
 
