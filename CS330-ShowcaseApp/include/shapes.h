@@ -1,34 +1,130 @@
 //
-// Created by maxan on 11/7/2023.
+// Created by maxan on 12/5/2023.
 //
 
 #pragma once
-#include <glm/glm.hpp>
 
-#include <glm/gtc/constants.hpp>
-#include <cmath>
-#include <iostream>
+#include <types.h>
 
-// each triangle will have some or all of the attributes below
-struct Vertex {
-    glm::vec3 Position {0.f, 0.f, 0.f}; // default position of (0,0,0)
-    glm::vec3 Color {1.f, 1.f, 1.f}; // default color white
-    glm::vec3 Normal {0.f, 0.f, 0.f};
-    glm::vec2 Uv {1.f, 1.f};
-};
+#include <numbers>
+#include <tuple>
+#include <vector>
 
-/*
- * to make colors darker change every rgb value by the same percentage eg. for red:
- * {1.0f, 0.0f, 0.0f} becomes {0.8f, 0.0f, 0.0f} each is changed by 20%
- * or more clearly for yellow: {1.0f, 1.0f, 0.5f} becomes {0.8f, 0.8f, 0.4f}
- */
+struct Shapes2 {
+    static inline std::vector<Vertex> GetUnitCircleVertices(uint32_t sectorCount) {
+        float sectorStep = 2.f * std::numbers::pi_v<float> / static_cast<float>(sectorCount);
+        float sectorAngle; // radians
 
-/*
- * a Uv greater than 1 will make tiles. for example change all 1's, (0.f, 5.f) (5.f, 0.f)
- * a Uv smaller than 1 will stretch the Uv
- */
+        std::vector<Vertex> vertices{};
 
-struct Shapes {
+        for (auto i = 0; i <= sectorCount; i++) {
+            sectorAngle = static_cast<float>(i) * sectorStep;
+            vertices.push_back({
+                                       .Position = {
+                                               std::cos(sectorAngle),
+                                               std::sin(sectorAngle),
+                                               0
+                                       }
+                               });
+        }
+
+        return vertices;
+
+    };
+
+    static inline std::tuple<std::vector<Vertex>, std::vector<uint32_t>> BuildCylinderSmooth
+            (uint32_t sectorCount, float baseRadius, float height) {
+        std::vector<Vertex> vertices{};
+        std::vector<uint32_t> indices{};
+
+        auto unitCircleVertices = GetUnitCircleVertices(sectorCount);
+
+        /*
+         *  building vertex array
+         */
+
+        // build the sides
+        for (auto i = 0; i < 2; i++) {
+            float h = -height / 2.f + static_cast<float>(i) * height;
+            float t = 1.f - i; // texCoord
+
+            // loop over all unit circle vertices
+            uint32_t vertexIndex{ 0 };
+            for (auto vertex: unitCircleVertices) {
+                vertices.push_back({
+                                           .Position = {
+                                                   vertex.Position.x * baseRadius,
+                                                   vertex.Position.y * baseRadius,
+                                                   h,
+                                           },
+                                           .Color = {
+                                                   vertexIndex % 3 == 0 ? 1.f : 0.f,
+                                                   vertexIndex % 3 == 1 ? 1.f : 0.f,
+                                                   vertexIndex % 3 == 2 ? 1.f : 0.f,
+                                           },
+                                           .Normal = {
+                                                   vertex.Position.x * baseRadius,
+                                                   vertex.Position.y * baseRadius,
+                                                   vertex.Position.z * baseRadius,
+                                           },
+                                           .Uv = {
+                                                   static_cast<float>(vertexIndex) / static_cast<float>(sectorCount),
+                                                   t
+                                           }
+                                   });
+
+                vertexIndex++;
+            }
+        }
+
+        /*
+         *  building index array
+         */
+
+        // indices for side surface
+
+        uint32_t k1 = 0;
+        uint32_t k2 = sectorCount + 1;
+        for (auto i = 0; i < sectorCount; i++, k1++, k2++) {
+            // 2 triangles per sector
+            indices.push_back(k1);
+            indices.push_back(k1 + 1);
+            indices.push_back(k2);
+
+            indices.push_back(k2);
+            indices.push_back(k1 + 1);
+            indices.push_back(k2 + 1);
+        }
+
+        // bottom surface
+        for (uint32_t i = 0, k = baseCenterIndex + 1; i < sectorCount; i++, k++) {
+            if (i < sectorCount - 1) {
+                indices.push_back(baseCenterIndex);
+                indices.push_back(k + 1);
+                indices.push_back(k);
+            } else {
+                indices.push_back(baseCenterIndex);
+                indices.push_back(baseCenterIndex + 1);
+                indices.push_back(k);
+            }
+        }
+
+        // top surface
+        for (uint32_t i = 0, k = topCenterIndex + 1; i < sectorCount; i++, k++) {
+            if (i < sectorCount - 1) {
+                indices.push_back(topCenterIndex);
+                indices.push_back(k);
+                indices.push_back(k + 1);
+            } else {
+                indices.push_back(topCenterIndex);
+                indices.push_back(k);
+                indices.push_back(topCenterIndex + 1);
+            }
+        }
+
+        return {vertices, indices};
+    }
+
     static inline std::vector<Vertex> planeVertices{
             // a plane is two triangles
             {
@@ -434,4 +530,5 @@ struct Shapes {
 
     static inline std::vector<Vertex> someSphereVertices = getSphereVertices(0.5f, 20, 20);
     static inline std::vector<uint32_t> someSphereIndices = getSphereIndices(20, 20);
+
 };

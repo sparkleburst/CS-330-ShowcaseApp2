@@ -20,7 +20,16 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${GLAD_SOURCES}
         include/camera.h
         external/shared/stb_image/stb.cpp
         src/texture.cpp
-        include/texture.h)
+        include/texture.h
+        src/light.cpp
+        include/light.h
+        src/game_object.cpp
+        include/game_object.h
+        src/model.cpp
+        include/model.h
+        src/cat_area.cpp
+        include/cat_area.h
+        include/shapes.h)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
@@ -39,6 +48,9 @@ target_link_libraries(${PROJECT_NAME}
         stb
 )
 
-add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+add_custom_target(copy_assets
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
+)
+
+add_dependencies(${PROJECT_NAME} copy_assets)

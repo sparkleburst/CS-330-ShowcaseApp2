@@ -36,7 +36,7 @@ private:
     Camera _camera;
     std::vector<Mesh> _meshes;
     std::vector<Texture> _textures;
-    Shader _shader;
+    Shader _basicLitShader;
 	bool _running{ false };
 
     bool _firstMouse { false };
@@ -45,8 +45,7 @@ private:
 
     float _lastFrameTime { -1.f };
 
-    // don't need these anymore
-    // GLuint _woodFloorTexture;
-    // GLuint _reddishFluffTexture;
-    // GLuint _rainGlassTexture;
+    // lighting variables
+    float _ambientStrength { 0.1f };
+    glm::vec3 _ambientLightColor {1.f, 1.f,1.f};
 };

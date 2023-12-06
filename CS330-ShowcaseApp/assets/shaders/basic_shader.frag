@@ -1,5 +1,7 @@
 #version 330 core
 
+//week3shader.frag
+
 out vec4 FragColor;
 in vec4 vertexColor;
 in vec2 texCoord;

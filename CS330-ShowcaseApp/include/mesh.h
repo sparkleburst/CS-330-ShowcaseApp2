@@ -6,34 +6,23 @@
 #include <vector>
 #include <types.h>
 #include <glad/glad.h>
-#include <vector>
-
-enum MeshType {
-    Cube,
-    Pyramid,
-    Cylinder,
-    // Add more mesh types as needed
-};
-
-/*
-struct Vertex {
-    glm::vec3 Position;
-    glm::vec3 Color;
-    // Other vertex attributes...
-};
-*/
 
 class Mesh {
 public:
 
     Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements);
-    explicit Mesh(MeshType type);
-    MeshType Type;
+    Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements, const glm::vec3& color);
+
+    //explicit Mesh(MeshType type);
+    //MeshType Type;
 
     void Draw();
 
     // basic camera
     glm::mat4 Transform {1.f};
+
+private:
+    void init(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements);
 
 private:
 

@@ -5,6 +5,8 @@
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
+#include <light.h>
+#include "cat_area.h"
 
 // constructor
 Application::Application(std::string WindowTitle, int width, int height)
@@ -114,6 +116,11 @@ bool Application::openWindow()
     // enable depth
     glEnable(GL_DEPTH_TEST);
 
+    // cull back face
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+
     return true;
 }
 
@@ -192,8 +199,9 @@ void Application::setupInputs() {
 void Application::setupScene() {
 
     // this is the pyramid
-    //auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements);
-
+    auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements,
+                                         glm::vec3(0.5f, 0.5f, 0.5f));
+/*
     // this is the cat bed base rectangle (square atm)
     auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
 
@@ -231,10 +239,10 @@ void Application::setupScene() {
     // this is a ball
     auto& aBall = _meshes.emplace_back(Shapes::someSphereVertices, Shapes::someSphereIndices);
     aBall.Transform = glm::translate(aBall.Transform, glm::vec3(1.5f, 0.4f, 1.5f));
-
+*/
     // get to shaders file info
     Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
-    _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
+    _basicLitShader = Shader(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
 
     auto texturePath = std::filesystem::current_path() / "assets" / "textures";
     _textures.emplace_back(texturePath / "grey_fur.jpg");  // cube
@@ -245,6 +253,11 @@ void Application::setupScene() {
     _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
     _textures.emplace_back(texturePath / "rain_on_glass.jpg");  //
 
+    // check week 6 from 32:46
+    _objects.push_back(std::make_unique<CatArea>());
+    auto &light = _objects.emplace_back(std::make_unique<Light>());
+
+    light->Transform = glm::translate(light->Transform, glm::vec3(1.f, 1.f, 1.f));
 }
 
 bool Application::update(float deltaTime) {
@@ -257,7 +270,7 @@ bool Application::update(float deltaTime) {
 }
 
 bool Application::draw() {
-    // makes the background of the main window lilac
+    // below makes the background of the main window lilac
     glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -268,15 +281,15 @@ bool Application::draw() {
     glm::mat4 projection = _camera.GetProjectionMatrix();
 
     // bind shaders before drawing meshes
-    _shader.Bind();
-    _shader.SetMat4("projection", projection);
-    _shader.SetMat4("view", view);
+    _basicLitShader.Bind();
+    _basicLitShader.SetMat4("projection", projection);
+    _basicLitShader.SetMat4("view", view);
 
     // for each texture do below
-    _shader.SetInt("tex0", 0);
-    _shader.SetInt("tex1", 1);
-    _shader.SetInt("tex2", 2);
-    _shader.SetInt("tex3", 3);
+    _basicLitShader.SetInt("tex0", 0);
+    _basicLitShader.SetInt("tex1", 1);
+    _basicLitShader.SetInt("tex2", 2);
+    _basicLitShader.SetInt("tex3", 3);
 
     // adding textures
     // glActiveTexture(GL_TEXTURE0);
@@ -308,7 +321,7 @@ bool Application::draw() {
         */
         _textures[meshIndex++].Bind();
 
-        _shader.SetMat4("model", mesh.Transform);
+        _basicLitShader.SetMat4("model", mesh.Transform);
         mesh.Draw();
     }
 

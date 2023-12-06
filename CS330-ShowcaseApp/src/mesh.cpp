@@ -8,6 +8,34 @@
 // mesh.cpp constructors
 
 Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements) {
+    init(vertices, elements);
+}
+
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements, const glm::vec3 &color) {
+    // override color
+    for (auto& vertex : vertices) {
+        vertex.Color = color;
+    }
+
+    init(vertices, elements);
+}
+
+void Mesh::Draw() {
+    /* moved to shaders.cpp
+     *
+    // use our triangle shaders
+    glUseProgram(_shaderProgram);
+     */
+
+    // bind vertex array
+    glBindVertexArray(_vertexArrayObject);
+
+    // gl draw calls
+    glDrawElements(GL_TRIANGLES, _elementCount, GL_UNSIGNED_INT, nullptr);
+
+}
+
+void Mesh::init(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements) {
     // create the triangle
     glGenVertexArrays(1, &_vertexArrayObject);
     // initialize above with below
@@ -37,24 +65,4 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &elements) {
     glEnableVertexAttribArray(3);
 
     _elementCount = elements.size();
-}
-
-Mesh::Mesh(MeshType type) : Type(type) {
-    // Initialize other members as needed
-}
-
-
-void Mesh::Draw() {
-    /* moved to shaders.cpp
-     *
-    // use our triangle shaders
-    glUseProgram(_shaderProgram);
-     */
-
-    // bind vertex array
-    glBindVertexArray(_vertexArrayObject);
-
-    // gl draw calls
-    glDrawElements(GL_TRIANGLES, _elementCount, GL_UNSIGNED_INT, nullptr);
-
 }
