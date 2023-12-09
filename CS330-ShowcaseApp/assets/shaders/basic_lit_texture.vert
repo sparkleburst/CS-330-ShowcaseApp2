@@ -7,6 +7,7 @@ layout (location = 3) in vec2 uv;
 out vec4 vertexColor;
 out vec3 fragNormal;
 out vec3 fragPosition;
+out vec2 texCoord;
 
 uniform mat4 view;
 uniform mat4 projection;
@@ -17,8 +18,5 @@ void main() {
     fragPosition = vec3(model * vec4(position, 1));
     vertexColor = vec4(color, 1.f);
     fragNormal = mat3(transpose(inverse(model))) * normal;
+    texCoord = uv;
 }
-
-// if you change something here go into shader.cpp and add a space or return there somewhere
-// for the program to realize a change has been made
-

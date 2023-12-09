@@ -3,6 +3,7 @@
 //
 
 #include <light.h>
+#include "shapes.h"
 
 Light::Light() {
     createShader();
@@ -17,23 +18,31 @@ void Light::Update(float deltaTime) {
 
 }
 
-void Light::Draw(const glm::mat4 &view, const glm::mat4 &projection) {
-for (auto& model : _models) {
-    auto* shader = model.GetShader();
-    auto* mesh = model.GetMesh();
-    shader->Bind();
-    shader->SetMat4("projection", projection);
-    shader->SetMat4("view", view);
-    shader->SetMat4("model", Transform * mesh->Transform);
+void Light::Draw(const SceneParameters& sceneParams) {
+    for (auto& model : _models) {
+        auto* shader = model.GetShader();
+        auto* mesh = model.GetMesh();
+        shader->Bind();
+        shader->SetMat4("projection", sceneParams.ProjectionMatrix);
+        shader->SetMat4("view", sceneParams.ViewMatrix);
+        shader->SetMat4("model", Transform * mesh->Transform);
 
-    mesh->Draw();
+        mesh->Draw();
+    }
 }
+
+void Light::ProcessLighting(SceneParameters &sceneParams) {
+
+    if (sceneParams.Lights.size() < MAX_LIGHTS) {
+        auto lightPos = glm::vec3(Transform[3]);
+        sceneParams.Lights.emplace_back(lightPos);
+    }
 
 }
 
 void Light::createShader() {
-    _basicUnlitShader = std::make_shared<Shader>(Path("basic_unlit_color.vert"),
-                                                 Path("basic_unlit_color.frag"));
+    _basicUnlitShader = std::make_shared<Shader>(Path("assets/shaders/basic_unlit_color.vert"),
+                                                 Path("assets/shaders/basic_unlit_color.frag"));
 }
 
 void Light::createMesh() {
@@ -41,3 +50,5 @@ void Light::createMesh() {
                                          glm::vec3(1.f, 1.f, 1.f));
     auto& cubeModel = _models.emplace_back(cube, _basicUnlitShader);
 }
+
+

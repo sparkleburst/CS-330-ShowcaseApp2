@@ -18,7 +18,9 @@ public:
 
     void Update(float deltaTime) override;
 
-    void Draw(const glm::mat4 &view, const glm::mat4 &projection) override;
+    void Draw(const SceneParameters& sceneParams) override;
+
+    void ProcessLighting(SceneParameters &sceneParams) override;
 
 private:
     void createShader();

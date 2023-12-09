@@ -4,6 +4,7 @@
 
 #include <mesh.h>
 #include <iostream>
+#include "shapes.h"
 
 // mesh.cpp constructors
 
@@ -36,6 +37,16 @@ void Mesh::Draw() {
 }
 
 void Mesh::init(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements) {
+
+    for (auto i = 0; i < elements.size(); i += 3) {
+        // generate normals
+        auto p1index = elements[i];
+        auto p2index = elements[i + 1];
+        auto p3index = elements[i + 2];
+
+        Shapes::UpdateNormals(vertices[p1index], vertices[p2index], vertices[p3index]);
+    }
+
     // create the triangle
     glGenVertexArrays(1, &_vertexArrayObject);
     // initialize above with below

@@ -6,11 +6,25 @@
 
 #include <types.h>
 
+#include <glm/glm.hpp>
+#include <vector>
+
 #include <numbers>
 #include <tuple>
 #include <vector>
 
-struct Shapes2 {
+struct Shapes {
+    static inline void UpdateNormals(Vertex& p1, Vertex& p2, Vertex& p3) {
+        glm::vec3 U = p2.Position - p1.Position;
+        glm::vec3 V = p3.Position - p1.Position;
+
+        auto normal = glm::cross(U, V);
+
+        p1.Normal = normal;
+        p2.Normal = normal;
+        p3.Normal = normal;
+    }
+
     static inline std::vector<Vertex> GetUnitCircleVertices(uint32_t sectorCount) {
         float sectorStep = 2.f * std::numbers::pi_v<float> / static_cast<float>(sectorCount);
         float sectorAngle; // radians
@@ -33,7 +47,7 @@ struct Shapes2 {
     };
 
     static inline std::tuple<std::vector<Vertex>, std::vector<uint32_t>> BuildCylinderSmooth
-            (uint32_t sectorCount, float baseRadius, float height) {
+            (uint32_t sectorCount, uint32_t topCenterIndex, uint32_t baseCenterIndex, float baseRadius, float height) {
         std::vector<Vertex> vertices{};
         std::vector<uint32_t> indices{};
 
@@ -477,6 +491,7 @@ struct Shapes2 {
 
     static inline std::vector<uint32_t> someCylinderElements = getCylinderIndices();
 
+    /*
     static std::vector<Vertex> getSphereVertices(float radius, int sectorCount, int stackCount) {
         std::vector<Vertex> sphereVertices;
 
@@ -530,5 +545,6 @@ struct Shapes2 {
 
     static inline std::vector<Vertex> someSphereVertices = getSphereVertices(0.5f, 20, 20);
     static inline std::vector<uint32_t> someSphereIndices = getSphereIndices(20, 20);
+*/
 
 };

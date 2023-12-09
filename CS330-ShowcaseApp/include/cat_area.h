@@ -13,7 +13,9 @@ public:
     CatArea();
     void Init() override;
     void Update(float deltaTime) override;
-    void Draw(const glm::mat4& view, const glm::mat4& projection) override;
+    void Draw(const SceneParameters& sceneParams) override;
+
+    void ProcessLighting(SceneParameters &sceneParams) override;
 
 private:
     void createShaders();
@@ -32,7 +34,7 @@ private:
 
 private:
     std::shared_ptr<Shader> _basicLitShader;
-    std::shared_ptr<Shader> _textureShader;
+    std::shared_ptr<Shader> _basicLitTextureShader;
 
     std::shared_ptr<Mesh> _cylinder;
     std::shared_ptr<Mesh> _cube;

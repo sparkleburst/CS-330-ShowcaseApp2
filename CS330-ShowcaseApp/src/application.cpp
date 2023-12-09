@@ -7,10 +7,11 @@
 #include <stb_image.h>
 #include <light.h>
 #include "cat_area.h"
+#include "shapes.h"
 
 // constructor
 Application::Application(std::string WindowTitle, int width, int height)
-    : _applicationName{std::move( WindowTitle )}, _width{ width }, _height{ height },
+    : _applicationName{std::move( WindowTitle )},
     _camera { width, height, {0.0f, 1.5f, 5.f}, true},
     _cameraLookSpeed {0.15f, 0.15f} // sensitivity of mouse movement
     {}
@@ -99,8 +100,9 @@ bool Application::openWindow()
 			glViewport(0, 0, width, height);
 
             auto app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
-            app->_width = width;
-            app->_height = height;
+
+            //app->_width = width;
+            //app->_height = height;
 
             app->_camera.SetSize(width, height);
 		});
@@ -197,11 +199,11 @@ void Application::setupInputs() {
 }
 
 void Application::setupScene() {
-
+/*
     // this is the pyramid
     auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements,
                                          glm::vec3(0.5f, 0.5f, 0.5f));
-/*
+
     // this is the cat bed base rectangle (square atm)
     auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
 
@@ -239,7 +241,7 @@ void Application::setupScene() {
     // this is a ball
     auto& aBall = _meshes.emplace_back(Shapes::someSphereVertices, Shapes::someSphereIndices);
     aBall.Transform = glm::translate(aBall.Transform, glm::vec3(1.5f, 0.4f, 1.5f));
-*/
+
     // get to shaders file info
     Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
     _basicLitShader = Shader(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
@@ -252,6 +254,7 @@ void Application::setupScene() {
     _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
     _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
     _textures.emplace_back(texturePath / "rain_on_glass.jpg");  //
+*/
 
     // check week 6 from 32:46
     _objects.push_back(std::make_unique<CatArea>());
@@ -260,18 +263,22 @@ void Application::setupScene() {
     light->Transform = glm::translate(light->Transform, glm::vec3(1.f, 1.f, 1.f));
 }
 
-bool Application::update(float deltaTime) {
+void Application::update(float deltaTime) {
     // poll events needs to be in update at the top of the update loop
     glfwPollEvents();
 
+    // handle all input events
     handleInput(deltaTime);
 
-    return false;
+    // there's only a cat area?
+    for (auto& object : _objects) {
+        object->Update(deltaTime);
+    }
 }
 
-bool Application::draw() {
-    // below makes the background of the main window lilac
-    glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
+void Application::draw() {
+    // below makes the background of the main window purple
+    glClearColor(0.2f, 0.1f, 0.5f, 1.0f); // purple
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // camera
@@ -279,6 +286,26 @@ bool Application::draw() {
 
     // 75 degree field of view
     glm::mat4 projection = _camera.GetProjectionMatrix();
+
+    SceneParameters sceneParams {
+        .ProjectionMatrix = projection,
+        .ViewMatrix = view
+    };
+
+
+
+    for (auto& model : _objects) {
+        model->ProcessLighting(sceneParams);
+    }
+
+    // draw all models in the scene
+    for (auto& model : _objects) {
+        model->Draw(sceneParams);
+    }
+
+    glfwSwapBuffers(_window);
+
+    /*
 
     // bind shaders before drawing meshes
     _basicLitShader.Bind();
@@ -296,38 +323,36 @@ bool Application::draw() {
     // bind textures after binding shaders but before drawing the mesh
     // glBindTexture(GL_TEXTURE_2D, _woodFloorTexture);
 
-    /*
+
     // for when you want to do multiple textures
     for (auto i = 0; i < _textures.size(); i++) {
         glActiveTexture(GL_TEXTURE0 + i);
         _textures[i].Bind();
     }
-    */
+
 
     int meshIndex = 0;
 
     for (auto& mesh : _meshes) {
 
-        /*
+
         // rotate objects
         mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.3f), glm::vec3(1, 1, 1));
-        */
 
-        /*
+
+
         if (mesh.Type == Cylinder) {
             // Rotate the cylinder
             mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.f), glm::vec3(1, 1, 1));
         }
-        */
+
         _textures[meshIndex++].Bind();
 
         _basicLitShader.SetMat4("model", mesh.Transform);
         mesh.Draw();
     }
 
-    glfwSwapBuffers(_window);
-
-    return false;
+    */
 }
 
 void Application::handleInput(float deltaTime) {
