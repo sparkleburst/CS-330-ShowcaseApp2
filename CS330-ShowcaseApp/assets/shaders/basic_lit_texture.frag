@@ -16,18 +16,25 @@ uniform sampler2D tex0;
 void main() {
     vec3 objectColor = texture(tex0, texCoord).rgb;
 
-    vec3 lightColor = vec3(1.f, 1.f, 1.f);
+    vec3 lightColorAmbient = vec3(1.f, 1.f, 1.f);
+    vec3 lightColor0 = vec3(0.f, 1.f, 0.f);
+    vec3 lightColor1 = vec3(0.1f, 0.1f, 0.1f);
 
     float ambientStrength = 0.1f;
-    vec3 ambient = ambientStrength * lightColor;
+    vec3 ambient = ambientStrength * lightColorAmbient;
 
 
     // diffuse color
     vec3 norm = normalize(fragNormal);
-    vec3 lightDir = normalize(lightPos0 - fragPosition);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 lightDir0 = normalize(lightPos0 - fragPosition);
+    vec3 lightDir1 = normalize(lightPos1 - fragPosition);
 
-    vec3 finalColor = (diffuse + ambient) * objectColor;
+    float diff0 = max(dot(norm, lightDir0), 0.0);
+    float diff1 = max(dot(norm, lightDir1), 0.0);
+
+    vec3 diffuse0 = diff0 * lightColor0;
+    vec3 diffuse1 = diff1 * lightColor1;
+
+    vec3 finalColor = (diffuse0 + diffuse1 + ambient) * objectColor;
     FragColor = vec4(finalColor, 1.0);
 }

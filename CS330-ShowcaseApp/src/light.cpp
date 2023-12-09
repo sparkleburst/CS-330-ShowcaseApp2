@@ -48,7 +48,7 @@ void Light::createShader() {
 void Light::createMesh() {
     auto cube = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements,
                                          glm::vec3(1.f, 1.f, 1.f));
-    auto& cubeModel = _models.emplace_back(cube, _basicUnlitShader);
+    _models.emplace_back(cube, _basicUnlitShader);
 }
 
 

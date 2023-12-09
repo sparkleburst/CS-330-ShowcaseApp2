@@ -28,7 +28,9 @@ void Application::Run() {
 	_running = true;
 
     // set up the scene
+    //std::cerr << "it's setup crashing" << std::endl;
     setupScene();
+    //std::cerr << "the end setup" << std::endl;
 
 	// run application
 
@@ -47,19 +49,15 @@ void Application::Run() {
             continue;
 		}
 
-	    /*
-	     * ??? does this need to be here ???
-		// makes the background of the main window red
-		glClearColor(1.0f, 1.0f, 1.0f, 0.1f);
-		glClear(GL_COLOR_BUFFER_BIT);
-	     */
-
         // adding vertices
         // update
+        //std::cerr << "it's update crashing" << std::endl;
         update(deltaTime);
 
         // draw
+        //std::cerr << "it's draw crashing" << std::endl;
         draw();
+        //std::cerr << "it's end draw" << std::endl;
 	}
 
 	glfwTerminate();
@@ -199,68 +197,14 @@ void Application::setupInputs() {
 }
 
 void Application::setupScene() {
-/*
-    // this is the pyramid
-    auto& pyramid = _meshes.emplace_back(Shapes::pyramidVertices, Shapes::pyramidElements,
-                                         glm::vec3(0.5f, 0.5f, 0.5f));
-
-    // this is the cat bed base rectangle (square atm)
-    auto& bedCube = _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
-
-    // move the cube over
-    // bedCube.Transform = glm::translate(bedCube.Transform, glm::vec3(1.5f, 0.0f, 0.0f));
-
-    // this is the plane or floor
-    auto& catAreaFloor = _meshes.emplace_back(Shapes::planeVertices, Shapes::planeElements);
-    catAreaFloor.Transform = glm::translate(catAreaFloor.Transform, glm::vec3(0.f, -0.001f, 0.0f));
-
-    // this is the left side bedCylinder
-    auto& leftBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
-
-    leftBedCylinder.Transform = glm::translate(leftBedCylinder.Transform, glm::vec3(0.5f, 0.2f, 0.0f));
-    leftBedCylinder.Transform = glm::rotate(leftBedCylinder.Transform, glm::radians(90.f), glm::vec3(1, 0, 0));
-
-    // this is the right side bedCylinder
-    auto& rightBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
-
-    rightBedCylinder.Transform = glm::translate(rightBedCylinder.Transform, glm::vec3(-0.5f, 0.2f, 0.0f));
-    rightBedCylinder.Transform = glm::rotate(rightBedCylinder.Transform, glm::radians(270.f), glm::vec3(1, 0, 0));
-
-    // this is the back side bedCylinder
-    auto& backBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
-
-    backBedCylinder.Transform = glm::translate(backBedCylinder.Transform, glm::vec3(0.f, 0.2f, 0.5f));
-    backBedCylinder.Transform = glm::rotate(backBedCylinder.Transform, glm::radians(90.f), glm::vec3(0, 0, 1));
-
-    // this is the front side bedCylinder
-    auto& frontBedCylinder = _meshes.emplace_back(Shapes::someCylinderVertices, Shapes::someCylinderElements);
-
-    frontBedCylinder.Transform = glm::translate(frontBedCylinder.Transform, glm::vec3(0.f, 0.2f, -0.5f));
-    frontBedCylinder.Transform = glm::rotate(frontBedCylinder.Transform, glm::radians(270.f), glm::vec3(0, 0, 1));
-
-    // this is a ball
-    auto& aBall = _meshes.emplace_back(Shapes::someSphereVertices, Shapes::someSphereIndices);
-    aBall.Transform = glm::translate(aBall.Transform, glm::vec3(1.5f, 0.4f, 1.5f));
-
-    // get to shaders file info
-    Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
-    _basicLitShader = Shader(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
-
-    auto texturePath = std::filesystem::current_path() / "assets" / "textures";
-    _textures.emplace_back(texturePath / "grey_fur.jpg");  // cube
-    _textures.emplace_back(texturePath / "wood_planks.jpg");    // plane
-    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
-    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
-    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
-    _textures.emplace_back(texturePath / "reddish_fluff.png");  // cylinder
-    _textures.emplace_back(texturePath / "rain_on_glass.jpg");  //
-*/
 
     // check week 6 from 32:46
     _objects.push_back(std::make_unique<CatArea>());
-    auto &light = _objects.emplace_back(std::make_unique<Light>());
+    auto& light0 = _objects.emplace_back(std::make_unique<Light>());
+    light0->Transform = glm::translate(light0->Transform, glm::vec3(1.f, 1.f, 1.f));
 
-    light->Transform = glm::translate(light->Transform, glm::vec3(1.f, 1.f, 1.f));
+    auto& light1 = _objects.emplace_back(std::make_unique<Light>());
+    light1->Transform = glm::translate(light1->Transform, glm::vec3(-1.f, -1.f, -1.f));
 }
 
 void Application::update(float deltaTime) {
@@ -295,64 +239,21 @@ void Application::draw() {
 
 
     for (auto& model : _objects) {
+        //std::cerr << "it's crashing" << std::endl;
         model->ProcessLighting(sceneParams);
+        //std::cerr << "the end it's crashing" << std::endl;
     }
 
     // draw all models in the scene
     for (auto& model : _objects) {
+        //std::cerr << "it's modelly crashing" << std::endl;
         model->Draw(sceneParams);
+        //std::cerr << "the end it's modelly crashing" << std::endl;
     }
 
     glfwSwapBuffers(_window);
 
-    /*
 
-    // bind shaders before drawing meshes
-    _basicLitShader.Bind();
-    _basicLitShader.SetMat4("projection", projection);
-    _basicLitShader.SetMat4("view", view);
-
-    // for each texture do below
-    _basicLitShader.SetInt("tex0", 0);
-    _basicLitShader.SetInt("tex1", 1);
-    _basicLitShader.SetInt("tex2", 2);
-    _basicLitShader.SetInt("tex3", 3);
-
-    // adding textures
-    // glActiveTexture(GL_TEXTURE0);
-    // bind textures after binding shaders but before drawing the mesh
-    // glBindTexture(GL_TEXTURE_2D, _woodFloorTexture);
-
-
-    // for when you want to do multiple textures
-    for (auto i = 0; i < _textures.size(); i++) {
-        glActiveTexture(GL_TEXTURE0 + i);
-        _textures[i].Bind();
-    }
-
-
-    int meshIndex = 0;
-
-    for (auto& mesh : _meshes) {
-
-
-        // rotate objects
-        mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.3f), glm::vec3(1, 1, 1));
-
-
-
-        if (mesh.Type == Cylinder) {
-            // Rotate the cylinder
-            mesh.Transform = glm::rotate(mesh.Transform, glm::radians(0.f), glm::vec3(1, 1, 1));
-        }
-
-        _textures[meshIndex++].Bind();
-
-        _basicLitShader.SetMat4("model", mesh.Transform);
-        mesh.Draw();
-    }
-
-    */
 }
 
 void Application::handleInput(float deltaTime) {
