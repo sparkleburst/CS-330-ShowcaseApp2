@@ -198,13 +198,16 @@ void Application::setupInputs() {
 
 void Application::setupScene() {
 
-    // check week 6 from 32:46
+    // place the objects in catArea.cpp
+    // move the light to their positions
     _objects.push_back(std::make_unique<CatArea>());
+
     auto& light0 = _objects.emplace_back(std::make_unique<Light>());
-    light0->Transform = glm::translate(light0->Transform, glm::vec3(1.f, 1.f, 1.f));
+    light0->Transform = glm::translate(light0->Transform, glm::vec3(-2.f, 1.f, 2.f));
 
     auto& light1 = _objects.emplace_back(std::make_unique<Light>());
-    light1->Transform = glm::translate(light1->Transform, glm::vec3(-1.f, -1.f, -1.f));
+    light1->Transform = glm::translate(light1->Transform, glm::vec3(2.f, 1.f, -2.f));
+
 }
 
 void Application::update(float deltaTime) {
@@ -233,7 +236,8 @@ void Application::draw() {
 
     SceneParameters sceneParams {
         .ProjectionMatrix = projection,
-        .ViewMatrix = view
+        .ViewMatrix = view,
+        .CameraPosition = _camera.GetPosition()
     };
 
 

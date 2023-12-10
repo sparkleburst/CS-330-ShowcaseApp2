@@ -8,6 +8,7 @@ in vec3 fragPosition;
 in vec2 texCoord;
 
 // in vec2 texCoord;
+uniform vec3 eyePos;
 
 uniform vec3 lightPos0;
 uniform vec3 lightPos1;
@@ -35,6 +36,18 @@ void main() {
     vec3 diffuse0 = diff0 * lightColor0;
     vec3 diffuse1 = diff1 * lightColor1;
 
+    /*
+    // specular lighting
+    float specularStrength = 1;
+    float shininess = 256;
+
+    vec3 viewDir = normalize(eyePos - fragPosition);
+    vec3 reflectDir = reflect(-lightDir, norm);
+
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 specular = specularStrength * spec * lightColor;
+*/
     vec3 finalColor = (diffuse0 + diffuse1 + ambient) * objectColor;
+    //vec3 finalColor = (diffuse0 + diffuse1 + ambient + specular) * objectColor;
     FragColor = vec4(finalColor, 1.0);
 }

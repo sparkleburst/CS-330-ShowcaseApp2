@@ -10,13 +10,10 @@
 
 CatArea::CatArea() {
     createShaders();
-    createBall1();
-    createBall2();
-    createBall3();
-    createBlueToy();
     createCatBed();
+    createBlueToy();
     createKickerToy();
-    createPlane();
+    createFloor();
     createPyramid();
 }
 
@@ -49,6 +46,9 @@ void CatArea::Draw(const SceneParameters& sceneParams) {
             shader->SetMat4("view", sceneParams.ViewMatrix);
 
             shader->UseTextures(1);
+
+            // set camera position
+            shader->SetVec3("eyePos", sceneParams.CameraPosition);
 
             // handle lights
             //std::cerr << "Handle lights" << std::endl;
@@ -100,7 +100,7 @@ void CatArea::createShaders() {
 void CatArea::createCatBed() {
 
     // create cat bed
-    //auto [cylinderVertices, cylinderElements] = Shapes::BuildCylinderSmooth(32, 1.f, 1.f);
+
     auto catBedBase = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements,
                                       glm::vec3(0.5f, 0.5f, 0.5f));
     auto bedCylinder1 = std::make_shared<Mesh>(Shapes::someCylinderVertices, Shapes::someCylinderElements,
@@ -112,47 +112,70 @@ void CatArea::createCatBed() {
     auto bedCylinder4 = std::make_shared<Mesh>(Shapes::someCylinderVertices, Shapes::someCylinderElements,
                                                glm::vec3(0.5f, 0.5f, 0.5f));
 
+    // textures for cat bed
     _models.emplace_back(catBedBase, _basicLitTextureShaderGreyFur);
     _models.emplace_back(bedCylinder1, _basicLitTextureShaderGreyFur);
     _models.emplace_back(bedCylinder2, _basicLitTextureShaderGreyFur);
     _models.emplace_back(bedCylinder3, _basicLitTextureShaderGreyFur);
     _models.emplace_back(bedCylinder4, _basicLitTextureShaderGreyFur);
 
+    // translate = move object, rotate = turn object, scale is make object correct size
     catBedBase->Transform = glm::translate(catBedBase->Transform, glm::vec3(0.5f, 1.f, 1.f));
-    catBedBase->Transform = glm::rotate(catBedBase->Transform, glm::radians(0.f), glm::vec3(1.f, 1.f, 1.f));
     catBedBase->Transform = glm::scale(catBedBase->Transform, glm::vec3(1.f, 0.2f, 1.f));
 
     bedCylinder1->Transform = glm::translate(bedCylinder1->Transform, glm::vec3(0.f, 0.5f, 0.f));
+    bedCylinder1->Transform = glm::rotate(bedCylinder1->Transform, glm::radians(0.f), glm::vec3(1.f, 1.f, 1.f));
+
     bedCylinder2->Transform = glm::translate(bedCylinder2->Transform, glm::vec3(0.5f, 0.f, 0.f));
+    bedCylinder2->Transform = glm::rotate(bedCylinder2->Transform, glm::radians(0.f), glm::vec3(1.f, 1.f, 1.f));
+
     bedCylinder3->Transform = glm::translate(bedCylinder3->Transform, glm::vec3(0.f, 0.f, 0.5f));
+    bedCylinder3->Transform = glm::rotate(bedCylinder3->Transform, glm::radians(0.f), glm::vec3(1.f, 1.f, 1.f));
+
     bedCylinder4->Transform = glm::translate(bedCylinder4->Transform, glm::vec3(0.5f, 1.f, 1.f));
+    bedCylinder4->Transform = glm::rotate(bedCylinder4->Transform, glm::radians(0.f), glm::vec3(1.f, 1.f, 1.f));
 
 }
 
-void CatArea::createBall1() {
-    auto greenBall = std::make_shared<Mesh>(Shapes::someSphereVertices, Shapes::someSphereIndices,
-                                             glm::vec3(0.f, 1.f, 0.f));
-    _models.emplace_back(greenBall, _basicLitShader);
-
-}
-
-void CatArea::createBall2() {
-
-}
-
-void CatArea::createBall3() {
-
-}
 
 void CatArea::createBlueToy() {
+
+    auto greenBall = std::make_shared<Mesh>(Shapes::someSphereVertices, Shapes::someSphereIndices,
+                                            glm::vec3(0.f, 1.f, 0.f));
+    auto redBall = std::make_shared<Mesh>(Shapes::someSphereVertices, Shapes::someSphereIndices,
+                                          glm::vec3(1.f, 0.f, 0.f));
+    auto yellowBall = std::make_shared<Mesh>(Shapes::someSphereVertices, Shapes::someSphereIndices,
+                                             glm::vec3(1.f, 1.f, 0.f));
+
+    _models.emplace_back(greenBall, _basicLitShader);
+    _models.emplace_back(redBall, _basicLitShader);
+    _models.emplace_back(yellowBall, _basicLitShader);
+
+    greenBall->Transform = glm::translate(greenBall->Transform, glm::vec3(-0.5f, 1.f, 1.f));
+    greenBall->Transform = glm::scale(greenBall->Transform, glm::vec3(0.1f, 0.1f, 0.1));
+
+    redBall->Transform = glm::translate(redBall->Transform, glm::vec3(-1.f, 1.f, 1.f));
+    redBall->Transform = glm::scale(redBall->Transform, glm::vec3(0.1f, 0.1f, 0.1));
+
+    yellowBall->Transform = glm::translate(yellowBall->Transform, glm::vec3(-1.5f, 1.f, 1.f));
+    yellowBall->Transform = glm::scale(yellowBall->Transform, glm::vec3(0.1f, 0.1f, 0.1));
+
+    // make blue cylinder
+    // make blue circles
+    // move balls to correct spots
 
 }
 
 void CatArea::createKickerToy() {
 
+    // make long cone
+    // put ball on top
+    // put second squished cone on top again
+    // put cylinders at very top as strings
+
 }
 
-void CatArea::createPlane() {
+void CatArea::createFloor() {
     auto woodFloor = std::make_shared<Mesh>(Shapes::planeVertices, Shapes::planeElements,
                                              glm::vec3(0.5f, 0.5f, 0.5f));
 

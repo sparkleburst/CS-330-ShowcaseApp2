@@ -21,16 +21,9 @@ private:
     void createShaders();
 
     void createCatBed();
-
-    void createBall1();
-    void createBall2();
-    void createBall3();
-
     void createBlueToy();
-
     void createKickerToy();
-
-    void createPlane();
+    void createFloor();
 
     void createPyramid();
 
