@@ -30,15 +30,20 @@ private:
 
     void createKickerToy();
 
+    void createPlane();
+
     void createPyramid();
 
 private:
     std::shared_ptr<Shader> _basicLitShader;
-    std::shared_ptr<Shader> _basicLitTextureShader;
+    std::shared_ptr<Shader> _basicLitTextureShaderGreyFur;
+    std::shared_ptr<Shader> _basicLitTextureShaderReddishFluff;
+    std::shared_ptr<Shader> _basicLitTextureShaderWoodPlanks;
 
     std::shared_ptr<Mesh> _cylinder;
     std::shared_ptr<Mesh> _cube;
     std::shared_ptr<Mesh> _pyramid;
+    std::shared_ptr<Mesh> _plane;
 
     std::vector<Model> _models {};
 };

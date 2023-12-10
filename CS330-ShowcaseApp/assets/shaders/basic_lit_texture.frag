@@ -17,7 +17,7 @@ void main() {
     vec3 objectColor = texture(tex0, texCoord).rgb;
 
     vec3 lightColorAmbient = vec3(1.f, 1.f, 1.f);
-    vec3 lightColor0 = vec3(0.f, 1.f, 0.f);
+    vec3 lightColor0 = vec3(0.5f, 0.5f, 0.5f);
     vec3 lightColor1 = vec3(0.1f, 0.1f, 0.1f);
 
     float ambientStrength = 0.1f;

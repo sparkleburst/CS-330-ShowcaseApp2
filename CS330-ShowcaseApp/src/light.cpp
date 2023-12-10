@@ -4,6 +4,7 @@
 
 #include <light.h>
 #include "shapes.h"
+#include "glm/ext/matrix_transform.hpp"
 
 Light::Light() {
     createShader();
@@ -46,9 +47,10 @@ void Light::createShader() {
 }
 
 void Light::createMesh() {
-    auto cube = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements,
+    auto lightCube = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements,
                                          glm::vec3(1.f, 1.f, 1.f));
-    _models.emplace_back(cube, _basicUnlitShader);
+    _models.emplace_back(lightCube, _basicUnlitShader);
+    lightCube->Transform = glm::scale(lightCube->Transform, glm::vec3(0.1f, 0.1f, 0.1f));
 }
 
 

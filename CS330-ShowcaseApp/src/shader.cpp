@@ -154,7 +154,7 @@ void Shader::UseTextures(int numTextures) const{
     for (auto i = 0; i < numTextures && i < _textures.size(); i++) {
         std::string uniformName = "tex";
         uniformName += std::to_string(i);
-
+        _textures[i]->Bind();
         SetInt(uniformName, i);
     }
 }

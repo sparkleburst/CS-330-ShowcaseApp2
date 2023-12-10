@@ -171,134 +171,134 @@ struct Shapes {
     static inline std::vector<Vertex> cubeVertices{
             // front face
             {
-                    .Position = {-0.1f, 0.1f, 0.1f},
+                    .Position = {-1.f, 1.f, 1.f},
                     .Color = {0.7f, 0.0f, 0.0f}, // darker red
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, 0.1f},
+                    .Position = {-1.f, -1.f, 1.f},
                     .Color = {1.0, 0.0f, 0.0f}, // red
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {0.1f, -0.1f, 0.1f},
+                    .Position = {1.f, -1.f, 1.f},
                     .Color = {1.0f, 0.0f, 0.0f},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {0.1f, 0.1f, 0.1f},
+                    .Position = {1.f, 1.f, 1.f},
                     .Color = {1.0f, 0.0f, 0.0f},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             },
 
             // right face
             {
-                    .Position = {0.1f, 0.1f, 0.1f},
+                    .Position = {1.f, 1.f, 1.f},
                     .Color = {0.6f, 0.3f, 0.6f}, // lighter purple
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {0.1f, -0.1f, 0.1f},
+                    .Position = {1.f, -1.f, 1.f},
                     .Color = {0.5f, 0.25f, 0.5f}, // purple
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {0.1f, -0.1f, -0.1f},
+                    .Position = {1.f, -1.f, -1.f},
                     .Color = {0.5f, 0.25f, 0.5f},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {0.1f, 0.1f, -0.1f},
+                    .Position = {1.f, 1.f, -.1f},
                     .Color = {0.5f, 0.25f, 0.5f},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             },
 
             // back face
             {
-                    .Position = {0.1f, 0.1f, -0.1f},
+                    .Position = {1.f, 1.f, -1.f},
                     .Color = {0.8, 0.518, 0.0}, // darker orange
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {0.1f, -0.1f, -0.1f},
+                    .Position = {1.f, -1.f, -1.f},
                     .Color = {1.0, 0.647, 0.0}, // orange
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, -0.1f},
+                    .Position = {-1.f, -1.f, -1.f},
                     .Color = {1.0, 0.647, 0.0},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {-0.1f, 0.1f, -0.1f},
+                    .Position = {-1.f, 1.f, -1.f},
                     .Color = {1.0, 0.647, 0.0},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             },
 
             // left face
             {
-                    .Position = {-0.1f, 0.1f, -0.1f},
+                    .Position = {-1.f, 1.f, -1.f},
                     .Color = {0.8f, 0.8f, 0.4f}, // darker yellow
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, -0.1f}, // yellow
+                    .Position = {-1.f, -1.f, -1.f}, // yellow
                     .Color = {1.0f, 1.0f, 0.5f},
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, 0.1f},
+                    .Position = {-1.f, -1.f, 1.f},
                     .Color = {1.0f, 1.0f, 0.5f},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {-0.1f, 0.1f, 0.1f},
+                    .Position = {-1.f, 1.f, 1.f},
                     .Color = {1.0f, 1.0f, 0.5f},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             },
 
             // top face
             {
-                    .Position = {-0.1f, 0.1f, -0.1f},
+                    .Position = {-1.f, 1.f, -1.f},
                     .Color = {0.6f, 1.0f, 0.6f}, // lighter green
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {-0.1f, 0.1f, 0.1f},
+                    .Position = {-1.f, 1.f, 1.f},
                     .Color = {0.0f, 1.0f, 0.0f}, // green
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {0.1f, 0.1f, 0.1f},
+                    .Position = {1.f, 1.f, 1.f},
                     .Color = {0.0f, 1.0f, 0.0f},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {0.1f, 0.1f, -0.1f},
+                    .Position = {1.f, 1.f, -1.f},
                     .Color = {0.0f, 1.0f, 0.0f},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             },
 
             // bottom face
             {
-                    .Position = {0.1f, -0.1f, 0.1f},
+                    .Position = {1.f, -1.f, 1.f},
                     .Color = {0.2f, 0.2f, 0.2f}, // lighter black (grey)
-                    .Uv = {0.f, 4.f}
+                    .Uv = {0.f, 1.f}
             },
             {
-                    .Position = {0.1f, -0.1f, -0.1f},
+                    .Position = {1.f, -1.f, -1.f},
                     .Color = {0.0f, 0.0f, 0.0f}, // black
                     .Uv = {0.f, 0.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, -0.1f},
+                    .Position = {-1.f, -1.f, -1.f},
                     .Color = {0.0f, 0.0f, 0.0f},
-                    .Uv = {4.f, 0.f}
+                    .Uv = {1.f, 0.f}
             },
             {
-                    .Position = {-0.1f, -0.1f, 0.1f},
+                    .Position = {-1.f, -1.f, 1.f},
                     .Color = {0.0f, 0.0f, 0.0f},
-                    .Uv = {4.f, 4.f}
+                    .Uv = {1.f, 1.f}
             }
     };
 
@@ -491,15 +491,15 @@ struct Shapes {
 
     static inline std::vector<uint32_t> someCylinderElements = getCylinderIndices();
 
-    /*
+
     static std::vector<Vertex> getSphereVertices(float radius, int sectorCount, int stackCount) {
         std::vector<Vertex> sphereVertices;
 
-        float sectorStep = 2 * glm::pi<float>() / sectorCount;
-        float stackStep = glm::pi<float>() / stackCount;
+        float sectorStep = 2 * std::numbers::pi / sectorCount;
+        float stackStep = std::numbers::pi / stackCount;
 
         for (int i = 0; i <= stackCount; ++i) {
-            float stackAngle = glm::pi<float>() / 2 - i * stackStep;
+            float stackAngle = std::numbers::pi / 2 - i * stackStep;
             float xy = radius * cos(stackAngle);
             float z = radius * sin(stackAngle);
 
@@ -545,6 +545,6 @@ struct Shapes {
 
     static inline std::vector<Vertex> someSphereVertices = getSphereVertices(0.5f, 20, 20);
     static inline std::vector<uint32_t> someSphereIndices = getSphereIndices(20, 20);
-*/
+
 
 };
