@@ -179,7 +179,7 @@ void CatArea::createBlueToy() {
     greenBall->Transform = glm::translate(greenBall->Transform, glm::vec3(-0.5f, 0.01f, 0.72f));
     greenBall->Transform = glm::scale(greenBall->Transform, glm::vec3(0.125f, 0.125f, 0.125f));
 
-    redBall->Transform = glm::translate(redBall->Transform, glm::vec3(0.f, 0.f, 0.f));
+    redBall->Transform = glm::translate(redBall->Transform, glm::vec3(0.f, 0.01f, 0.f));
     redBall->Transform = glm::scale(redBall->Transform, glm::vec3(0.125f, 0.125f, 0.125f));
 
     yellowBall->Transform = glm::translate(yellowBall->Transform, glm::vec3(-0.36f, 0.26f, 0.45f));
