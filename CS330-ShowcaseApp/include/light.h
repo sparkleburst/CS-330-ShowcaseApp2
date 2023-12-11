@@ -12,7 +12,7 @@
 
 class Light : public GameObject{
 public:
-    Light();
+    Light(float posMultiplier);
 
     void Init() override;
 
@@ -31,6 +31,9 @@ private:
     std::shared_ptr<Mesh> _pyramid {};
 
     std::vector<Model> _models {};
+
+    float _totalTime { 0.f };
+    float _posMultiplier { 0.f };
 };
 
 

@@ -35,8 +35,10 @@ private:
 
     std::shared_ptr<Mesh> _cylinder;
     std::shared_ptr<Mesh> _cube;
+    std::shared_ptr<Mesh> _cone;
     std::shared_ptr<Mesh> _pyramid;
     std::shared_ptr<Mesh> _plane;
+
 
     std::vector<Model> _models {};
 };

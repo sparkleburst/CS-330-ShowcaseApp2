@@ -15,7 +15,7 @@ uniform vec3 lightPos1;
 void main() {
     vec3 objectColor = vertexColor.xyz;
 
-    vec3 lightColor = vec3(1.f, 1.f, 1.f);
+    vec3 lightColor = vec3(1.f, 0.5f, 0.5f);
 
     float ambientStrength = 0.1f;
     vec3 ambient = ambientStrength * lightColor;
@@ -28,8 +28,8 @@ void main() {
     vec3 diffuse = diff * lightColor;
 
     // specular lighting
-    float specularStrength = 1;
-    float shininess = 256;
+    float specularStrength = 5;
+    float shininess = 64;
 
     vec3 viewDir = normalize(eyePos - fragPosition);
     vec3 reflectDir = reflect(-lightDir, norm);

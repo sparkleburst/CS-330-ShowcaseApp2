@@ -202,11 +202,11 @@ void Application::setupScene() {
     // move the light to their positions
     _objects.push_back(std::make_unique<CatArea>());
 
-    auto& light0 = _objects.emplace_back(std::make_unique<Light>());
-    light0->Transform = glm::translate(light0->Transform, glm::vec3(-2.f, 1.f, 2.f));
+    auto& light0 = _objects.emplace_back(std::make_unique<Light>(1));
+    //light0->Transform = glm::translate(light0->Transform, glm::vec3(0.f, 1.f, 0.f));
 
-    auto& light1 = _objects.emplace_back(std::make_unique<Light>());
-    light1->Transform = glm::translate(light1->Transform, glm::vec3(2.f, 1.f, -2.f));
+    auto& light1 = _objects.emplace_back(std::make_unique<Light>(-1));
+    //light1->Transform = glm::translate(light1->Transform, glm::vec3(0.f, 1.f, 2.f));
 
 }
 

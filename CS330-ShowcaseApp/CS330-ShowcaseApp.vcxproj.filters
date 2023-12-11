@@ -92,9 +92,6 @@
     <ClInclude Include="include\light.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\material.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\model.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>

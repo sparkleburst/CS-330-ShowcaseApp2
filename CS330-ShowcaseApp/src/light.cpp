@@ -6,9 +6,11 @@
 #include "shapes.h"
 #include "glm/ext/matrix_transform.hpp"
 
-Light::Light() {
+Light::Light(float posMultiplier) {
     createShader();
     createMesh();
+
+    _posMultiplier = posMultiplier;
 }
 
 void Light::Init() {
@@ -16,7 +18,14 @@ void Light::Init() {
 }
 
 void Light::Update(float deltaTime) {
+    auto cos = std::cos(_totalTime * .5f);
+    auto sin = std::sin(_totalTime * .5f);
 
+    Transform [3][0] = cos * _posMultiplier * 3.5f;
+    Transform [3][1] = 2;
+    Transform [3][2] = sin * _posMultiplier * 3.5f;
+
+    _totalTime += deltaTime;
 }
 
 void Light::Draw(const SceneParameters& sceneParams) {

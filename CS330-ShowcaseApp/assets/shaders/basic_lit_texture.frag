@@ -8,7 +8,8 @@ in vec3 fragPosition;
 in vec2 texCoord;
 
 // in vec2 texCoord;
-uniform vec3 eyePos;
+uniform vec3 eyePos0;
+uniform vec3 eyePos1;
 
 uniform vec3 lightPos0;
 uniform vec3 lightPos1;
@@ -18,12 +19,11 @@ void main() {
     vec3 objectColor = texture(tex0, texCoord).rgb;
 
     vec3 lightColorAmbient = vec3(1.f, 1.f, 1.f);
-    vec3 lightColor0 = vec3(0.5f, 0.5f, 0.5f);
+    vec3 lightColor0 = vec3(1.0f, 0.5f, 0.5f);
     vec3 lightColor1 = vec3(0.1f, 0.1f, 0.1f);
 
     float ambientStrength = 0.1f;
     vec3 ambient = ambientStrength * lightColorAmbient;
-
 
     // diffuse color
     vec3 norm = normalize(fragNormal);
@@ -36,18 +36,23 @@ void main() {
     vec3 diffuse0 = diff0 * lightColor0;
     vec3 diffuse1 = diff1 * lightColor1;
 
-    /*
     // specular lighting
-    float specularStrength = 1;
-    float shininess = 256;
+    float specularStrength = 3;
+    float shininess = 16;
 
-    vec3 viewDir = normalize(eyePos - fragPosition);
-    vec3 reflectDir = reflect(-lightDir, norm);
+    vec3 viewDir0 = normalize(eyePos0 - fragPosition);
+    vec3 viewDir1 = normalize(eyePos1 - fragPosition);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-    vec3 specular = specularStrength * spec * lightColor;
-*/
-    vec3 finalColor = (diffuse0 + diffuse1 + ambient) * objectColor;
-    //vec3 finalColor = (diffuse0 + diffuse1 + ambient + specular) * objectColor;
+    vec3 reflectDir0 = reflect(-lightDir0, norm);
+    vec3 reflectDir1 = reflect(-lightDir1, norm);
+
+    float spec0 = pow(max(dot(viewDir0, reflectDir0), 0.0), shininess);
+    float spec1 = pow(max(dot(viewDir1, reflectDir1), 0.0), shininess);
+
+    vec3 specular0 = specularStrength * spec0 * lightColor0;
+    vec3 specular1 = specularStrength * spec1 * lightColor1;
+
+    //vec3 finalColor = (diffuse0 + diffuse1 + ambient) * objectColor;
+    vec3 finalColor = (diffuse0 + diffuse1 + ambient + specular0 + specular1) * objectColor;
     FragColor = vec4(finalColor, 1.0);
 }
